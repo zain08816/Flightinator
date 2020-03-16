@@ -1,0 +1,87 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.app-name {
+    text-align: center;
+    font-weight: 900;
+    font-size: 44px;
+    color: #FFFFFF; 
+}
+
+p.message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 20px;
+  text-align: center;
+}
+p.message a {
+  color: white;
+   text-decoration:underline;
+   font-size: 20px;
+  text-align: center;
+}
+.Edit {
+    background-color: white;
+    border: #d12f39;
+    color: #d12f39;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    text-decoration:underline;
+}
+
+
+.Edit:hover {
+    background-color: #d12f39;
+    color: white;
+}
+caption { 
+    display: table-caption;
+    text-align: center;
+     text-decoration:underline;
+     font-size: 40px;
+     color: white;
+}
+table.center {
+    margin-left:auto; 
+    margin-right:auto;
+  }
+body {
+    background-color: #d12f39;
+    
+}
+table {
+	border-collapse: collapse;
+    border-style: solid;
+    border-width: thick;
+    border-color: white;
+     table-layout: fixed;
+    width: 200px;
+}
+
+table, th, td {
+	text-align: left;
+    border: 1px solid black;
+    width: 100px
+}
+
+tr {
+	line-height: 25px;
+}
+
+
+td{
+	background-color: white;
+    color: #d12f39;
+	
+}
+th {
+	
+    background-color: #d12f39;
+    color: white;
+}

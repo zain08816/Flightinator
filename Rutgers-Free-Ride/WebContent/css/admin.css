@@ -1,0 +1,128 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.app-name {
+    text-align: center;
+    font-weight: 900;
+    font-size: 44px;
+    color: #FFFFFF; 
+}
+
+body {
+	
+  background: #f73741; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #f73741, #cf2f1f);
+  background: -moz-linear-gradient(right, #f73741, #cf2f1f);
+  background: -o-linear-gradient(right, #f73741, #cf2f1f);
+  background: linear-gradient(to left, #f73741, #cf2f1f);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;      
+}
+
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+a {
+	color:#FFFFFF;
+	
+}
+
+button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #e93540;
+  width: 120px;
+  height: 40%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+button:hover,.form button:active,.form button:focus {
+  background: #d12f39;
+}
+
+input .delete-button{
+	  background: #e93540;
+	  outline: 0;
+	  color: #FFFFFF;	
+}
+
+p .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+
+p.header {
+  color: #ffffff;
+  font-size: 36px;
+}
+
+p.sub-header {
+  color: #ffffff;
+  font-size: 20px;
+}
+
+p.sub2-header {
+  color: #ffffff;
+  font-size: 15px;
+}
+
+tr { cursor: default;
+  color: #3a2b23;
+  background: #ffffff;
+ }
+.highlight { background: yellow; }
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+}
+
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+div.createsyssup {
+    float: left;
+    max-width: 250px;
+    margin: 0;
+    padding: 1em;
+}
+
+
+div.statistics {
+    margin-left: 270px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
