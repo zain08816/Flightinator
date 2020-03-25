@@ -1,5 +1,4 @@
 .DS_Store
-backend/package-lock.json
 backend/node_modules
-flight-app/package-lock.json
-flight-app/package-lock.json
+flight-app/nodes_modules
+
