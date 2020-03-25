@@ -11,7 +11,9 @@ function App(props) {
   const [isAuthenticated, userHasAuthenticated] = useState(false);
 
   function handleLogout() {
+
     userHasAuthenticated(false);
+
   }
 
 
