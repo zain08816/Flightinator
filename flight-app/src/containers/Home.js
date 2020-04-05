@@ -6,7 +6,7 @@ export default function Home() {
         <div className="Home">
             <div className="lander">
                 <h1>Flightinator 9000</h1>
-                <p>Book A flight here</p>
+                <p>Book a flight here</p>
             </div>
         </div>
     );
