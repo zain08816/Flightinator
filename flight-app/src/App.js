@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Routes from "./Routes";
 import { Link } from "react-router-dom";
@@ -9,15 +9,29 @@ import { LinkContainer } from "react-router-bootstrap";
 function App(props) {
 
   const [isAuthenticated, userHasAuthenticated] = useState(false);
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
+
+  useEffect(() => {
+    onLoad();
+  }, []);
+
+  function onLoad() {
+    userHasAuthenticated(false);
+    setIsAuthenticating(false);
+
+  }
+
 
   function handleLogout() {
 
+    setIsAuthenticating(false);
     userHasAuthenticated(false);
 
   }
 
 
   return (
+    !isAuthenticating &&
     <div className="App container">
       <Navbar fluid collapseOnSelect>
         <Navbar.Header>
