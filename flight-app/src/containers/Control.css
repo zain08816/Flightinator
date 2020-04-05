@@ -1,0 +1,15 @@
+.Control .flight-table {
+    font-family: "Open Sans", sans-serif;
+    order: solid 1px #4CAF50;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  
+  .Control .flight-table h1 {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+  }
+  
+  .Control .lander p {
+    color: #999;
+  }
