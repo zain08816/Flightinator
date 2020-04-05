@@ -18,7 +18,6 @@ function App(props) {
   function onLoad() {
     userHasAuthenticated(false);
     setIsAuthenticating(false);
-
   }
 
 
@@ -41,7 +40,12 @@ function App(props) {
         </Navbar.Header>
         <Nav pullRight>
           {isAuthenticated
-            ? <NavItem onClick={handleLogout}>Logout</NavItem>
+            ? <>
+              <NavItem onClick={handleLogout}>Logout</NavItem>
+              <LinkContainer to="/control">
+                <NavItem>Control Panel</NavItem>
+              </LinkContainer>
+            </>
             : <>
               <LinkContainer to="/signup">
                 <NavItem>Signup</NavItem>
