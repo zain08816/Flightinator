@@ -5,11 +5,11 @@
     border-spacing: 0;
   }
   
-  .Control .flight-table h1 {
+  .Control .title h2 {
     font-family: "Open Sans", sans-serif;
     font-weight: 600;
   }
   
-  .Control .lander p {
+  .Control .lander p { 
     color: #999;
   }
