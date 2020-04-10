@@ -14,7 +14,6 @@ export default function Signup(props) {
         username: "",
         password: "",
         confirmPassword: "",
-        confirmationCode: ""
     });
     const [newUser, setNewUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -27,11 +26,11 @@ export default function Signup(props) {
         );
     }
 
-    function validateConfirmationForm() {
-        return fields.confirmationCode.length > 0;
-    }
 
     async function handleSubmit(event) {
+
+        //SQL stuff here
+
         event.preventDefault();
 
         setIsLoading(true);
@@ -41,11 +40,6 @@ export default function Signup(props) {
         setIsLoading(false);
     }
 
-    async function handleConfirmationSubmit(event) {
-        event.preventDefault();
-
-        setIsLoading(true);
-    }
 
     function renderConfirmationForm() {
         return (
