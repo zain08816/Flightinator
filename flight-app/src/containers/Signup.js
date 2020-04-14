@@ -8,6 +8,7 @@ import {
 import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./Signup.css";
+import axios from 'axios';
 
 export default function Signup(props) {
     const [fields, handleFieldChange] = useFormFields({

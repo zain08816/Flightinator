@@ -36,7 +36,7 @@ router.get('/api/get/checkuser', (req, res, next) => {
 
 router.get('/api/hello', (req, res, next) => {
     const word = req.query.word
-	res.json('Hello '+ word +'!')
+	res.json(`Hello ${word}!`)
 })
 
 module.exports = router

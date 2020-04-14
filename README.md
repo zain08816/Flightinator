@@ -7,7 +7,7 @@ The frontend in `flight-app`  and the backend in `backend`.  Both are using Node
 with the frontend being using react and the backend using express.
 
 ## How to start
-If you havn't already, install Git and [Node.js](https://nodejs.org/en/download/) however you prefer.
+If you haven't already, install Git and [Node.js](https://nodejs.org/en/download/) however you prefer.
 
 ```text
 #Clone the repo wherever you want
