@@ -31,7 +31,11 @@ export default function Signup(props) {
     async function handleSubmit(event) {
 
         // SQL stuff here
-        console.log(require('util').inspect(event));
+        axios.post('/api/posts/signup', {
+            username: fields.username,
+            password: fields.password
+        })
+        .then( res => renderConfirmationForm(`Your username is ${fields.username}.`) );
 
         event.preventDefault();
 
@@ -43,10 +47,11 @@ export default function Signup(props) {
     }
 
 
-    function renderConfirmationForm() {
+    function renderConfirmationForm(extra) {
+        const ty = `Thanks for signing up! ${extra ? extra : ''}`;
         return (
             <div>
-                Thanks for Signing Up
+                {ty}
             </div>
         );
     }
