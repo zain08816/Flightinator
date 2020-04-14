@@ -30,7 +30,8 @@ export default function Signup(props) {
 
     async function handleSubmit(event) {
 
-        //SQL stuff here
+        // SQL stuff here
+        console.log(require('util').inspect(event));
 
         event.preventDefault();
 

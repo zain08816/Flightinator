@@ -20,7 +20,7 @@ export default function Home() {
             <div className="lander">
                 <h1>Flightinator 9000</h1>
                 <p>Book a flight here</p>
-                <p>click this button to test if the backend in started</p>
+                <p>Click this button see if the frontend can talk to the backend.</p>
                 <Button 
                 bsStyle="primary"
                 onClick={handleHello}>
