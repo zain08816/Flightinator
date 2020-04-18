@@ -9,6 +9,7 @@ import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./Signup.css";
 import axios from 'axios';
+const { inspect } = require('util')
 
 export default function Signup(props) {
     const [fields, handleFieldChange] = useFormFields({
@@ -18,6 +19,7 @@ export default function Signup(props) {
     });
     const [newUser, setNewUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [confirmation, setConfirmation] = useState('Thanks for signing up!');
 
     function validateForm() {
         return (
@@ -35,7 +37,14 @@ export default function Signup(props) {
             username: fields.username,
             password: fields.password
         })
-        .then( res => renderConfirmationForm(`Your username is ${fields.username}.`) );
+        .then( res => {
+            const error = res.data.error;
+            setConfirmation( error
+                ? `Couldn't make account! Error: ${error.code.startsWith('ER_DUP_ENTRY') ? 'Username taken.' : error.sqlMessage}` 
+                : `Thanks for signing up! Your username is ${fields.username}.` );
+        }).catch( err => {
+            if( err ) console.log(`API Error: ${err}`);
+        });
 
         event.preventDefault();
 
@@ -47,11 +56,10 @@ export default function Signup(props) {
     }
 
 
-    function renderConfirmationForm(extra) {
-        const ty = `Thanks for signing up! ${extra ? extra : ''}`;
+    function renderConfirmationForm() {
         return (
             <div>
-                {ty}
+                {confirmation}
             </div>
         );
     }

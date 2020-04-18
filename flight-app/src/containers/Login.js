@@ -3,6 +3,8 @@ import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./Login.css";
+import axios from 'axios';
+const { inspect } = require('util');
 
 export default function Login(props) {
     const [isLoading, setIsLoading] = useState(false);
@@ -10,28 +12,63 @@ export default function Login(props) {
         username: "",
         password: ""
     });
+    const [isDone, setDone] = useState('');
 
     function validateForm() {
         return fields.username.length > 0 && fields.password.length > 0;
     }
 
-    async function handleSubmit(event) {
-        event.preventDefault();
-
-        setIsLoading(true);
-
-        try {
-            // await Auth.signIn(fields.email, fields.password);
-            props.userHasAuthenticated(true);
-            props.history.push("/");
-        } catch (e) {
-            alert(e.message);
-            setIsLoading(false);
-        }
+    function renderErrorForm() {
+        return (
+            <div>
+                Login record not found.
+            </div>
+        );
     }
 
-    return (
-        <div className="Login">
+    async function handleSubmit(event) {
+        axios.post('/api/posts/login', {
+            username: fields.username,
+            password: fields.password
+        })
+        .then( res => {
+            const error = res.data.error;
+            setIsLoading(true);
+            if( error )
+                setDone(`Error encountered: ${inspect(error)}`);
+            else if( res.data.result < 1 )
+                setDone('Login record not found.');
+            else {
+                try {
+                    // await Auth.signIn(fields.email, fields.password);
+                    props.userHasAuthenticated(true);
+                    props.history.push("/");
+                } catch (e) {
+                    alert(e.message);
+                }
+            }
+            setIsLoading(false);
+        })
+        .catch( err => {
+            if( err ) console.log(`API Error: ${err}`);
+        })
+
+        event.preventDefault();
+
+        // setIsLoading(true);
+
+        // try {
+        //     // await Auth.signIn(fields.email, fields.password);
+        //     props.userHasAuthenticated(true);
+        //     props.history.push("/");
+        // } catch (e) {
+        //     alert(e.message);
+        //     setIsLoading(false);
+        // }
+    }
+
+    function renderForm() {
+        return (
             <form onSubmit={handleSubmit}>
                 <FormGroup controlId="username" bsSize="large">
                     <ControlLabel>Username</ControlLabel>
@@ -60,6 +97,12 @@ export default function Login(props) {
                     Login
         </LoaderButton>
             </form>
+        );
+    }
+
+    return (
+        <div className="Login">
+            {!isDone ? renderForm() : renderErrorForm()}
         </div>
     );
 }

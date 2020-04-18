@@ -10,8 +10,15 @@ router.post('/api/posts/signup', (req, res, next) => {
     connection.query(`INSERT INTO login
 VALUES('${req.body.username}', '${req.body.password}');`,
         (error, result) => {
-            if( error ) console.log(`mysql error: ${error}`);
-            else console.log(result);
+            res.send( error ? {error:error} : {} );
+        })
+})
+
+router.post('/api/posts/login', (req, res, next) => {
+    connection.query(`SELECT username,password FROM login WHERE username='${req.body.username}' AND password='${req.body.password}'`,
+        (error, result) => {
+            console.log(error);
+            res.send( error ? {error:error} : {result:result} );
         })
 })
 
