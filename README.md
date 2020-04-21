@@ -19,7 +19,7 @@ I suggest having 2 terminal windows open as you will need to have two servers
 running and it will be easier to control with seperate windows.
 
 ## Download the password.js file
-* put it in `flightinator/backend/main/password.js`
+* put it in `backend/main/password.js`
 
 ### In one terminal (starting dev server):
 ```bash
