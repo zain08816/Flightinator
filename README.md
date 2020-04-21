@@ -18,8 +18,8 @@ If you haven't already, install Git and [Node.js](https://nodejs.org/en/download
 I suggest having 2 terminal windows open as you will need to have two servers
 running and it will be easier to control with seperate windows.
 
-## Set the password environment variable so the backend can connect to the database
-`export DATABASE_PASSWORD="password here"`
+## Download the password.js file
+* put it in `flightinator/backend/main/password.js`
 
 ### In one terminal (starting dev server):
 ```bash
