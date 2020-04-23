@@ -4,6 +4,7 @@ import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import "./Login.css";
 import axios from 'axios';
+import Cookies from 'universal-cookie'
 const { inspect } = require('util');
 
 export default function Login(props) {
@@ -13,6 +14,7 @@ export default function Login(props) {
         password: ""
     });
     const [isDone, setDone] = useState('');
+    const cookies = new Cookies();
 
     function validateForm() {
         return fields.username.length > 0 && fields.password.length > 0;
@@ -41,6 +43,8 @@ export default function Login(props) {
             else {
                 try {
                     // await Auth.signIn(fields.email, fields.password);
+                    cookies.set('username', fields.username, { path: '/'})
+                    props.setUser(fields.username);
                     props.userHasAuthenticated(true);
                     props.history.push("/");
                 } catch (e) {
