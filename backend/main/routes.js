@@ -1,6 +1,6 @@
-var express = require('express')
-var router = express.Router()
-var connection = require('./db.js')
+var express = require('express');
+var router = express.Router();
+var connection = require('./db.js');
 
 // Profile stuff
 // SQL SYNTAX isnt correct here
@@ -17,17 +17,20 @@ VALUES('${req.body.username}', '${req.body.password}');`,
 router.post('/api/posts/login', (req, res, next) => {
     connection.query(`SELECT username,password FROM login WHERE username='${req.body.username}' AND password='${req.body.password}'`,
         (error, result) => {
-            console.log(error);
+            if (error) {
+                console.log(error);
+            }
             res.send( error ? {error:error} : {result:result} );
         })
 })
 
-router.get('/api/get/getuser', (req, res, next) => {
+
+router.get('/api/get/search_flight', (req, res, next) => {
     const user = req.query.username
     console.log(username)
     connection.query(`SELECT * FROM login
                 WHERE username=arjuuun`, [username],
-        (q_err, q_res) => {
+        (error, result) => {
             res.json(q_res.rows)
         })
 })
@@ -47,4 +50,4 @@ router.get('/api/hello', (req, res, next) => {
 	res.json(`Hello ${word}!`)
 })
 
-module.exports = router
+module.exports = router;

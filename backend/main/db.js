@@ -1,4 +1,4 @@
-const mysql = require('mysql')
+const mysql = require('mysql');
 const password = require('./password.js');
 
 const connection = mysql.createConnection({
@@ -11,6 +11,7 @@ const connection = mysql.createConnection({
 
 connection.connect(err => {
     if( err ) console.log(`uh oh couldn't connect to database: ${err}.`);
+    else console.log("Backend successfully connected to Database!")
 })
 
 module.exports = connection
