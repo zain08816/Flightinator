@@ -44,3 +44,18 @@
     border-radius: 6px;
     border: 1px solid #ccc;
 }
+
+.flight-table {
+  border-spacing: 0.5rem;
+
+}
+.flight-table thead th {
+  color: black;
+  padding: 10px;
+  text-align: center;
+}
+
+.flight-table tbody td {
+  color: black;
+  padding: 10px;
+}

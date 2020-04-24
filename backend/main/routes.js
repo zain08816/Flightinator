@@ -15,6 +15,7 @@ VALUES('${req.body.username}', '${req.body.password}');`,
 })
 
 router.post('/api/posts/login', (req, res, next) => {
+    console.log(req.body.username);
     connection.query(`SELECT username,password FROM login WHERE username='${req.body.username}' AND password='${req.body.password}';`,
         (error, result) => {
             if (error) {
@@ -28,12 +29,17 @@ router.post('/api/posts/customer_info', (req, res, next) => {
     return;
 })
 
-router.get('/api/posts/search_flight', (req, res, next) => {
+router.post('/api/posts/search_flight', (req, res, next) => {
     console.log(req.body.departure);
     console.log(req.body.arrival);
     console.log(req.body.trip_type);
+    var type_query = ""
+    if (req.body.trip_type == "all") type_query = "(trip_type='one' OR trip_type='round')";
+    else type_query = `trip_type='${req.body.trip_type}'`
+    console.log(`SELECT * FROM flights
+    WHERE departure='${req.body.departure}' AND arrival='${req.body.arrival}' AND ${type_query}';`)
     connection.query(`SELECT * FROM flights
-                WHERE departure='${req.body.departure}' AND arrival='${req.body.arrival}' AND trip_type='${req.body.trip_type}';`,
+                WHERE departure='${req.body.departure}' AND arrival='${req.body.arrival}' AND ${type_query};`,
         (error, result) => {
             res.send( error? {error:error} : {results:result})
         })

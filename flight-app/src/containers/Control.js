@@ -4,8 +4,7 @@ import {
     FormGroup,
     FormControl,
     ControlLabel,
-    Form,
-    Radio
+    Form
 } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
@@ -25,10 +24,13 @@ export default function Search(props) {
     });
     const [recieved, setRecieved] = useState(false);
     const [response, setResponse] = useState("");
+    const [error_response, setError] = useState("");
+    const [flight, setFlight]  = useState(0);
+    const [reserve, setReserve] = useState(false)
 
     async function handleSubmit(event) {
 
-        axios.get('/api/posts/search_flight', {
+        axios.post('/api/posts/search_flight', {
             departure: fields.departure,
             arrival: fields.arrival,
             trip_type: fields.trip_type
@@ -36,10 +38,10 @@ export default function Search(props) {
         .then( res => {
             const error = res.data.error;
             if ( error ) {
-                setResponse(error.sqlMessage);
+                setError(error.sqlMessage);
                 
             } else {
-                setResponse(res.data.result)
+                setResponse(res.data)
                 setRecieved(true);
             } 
         }).catch( err => {
@@ -52,12 +54,78 @@ export default function Search(props) {
         
     }
 
-    function renderResults() {
+    function renderBook() {
+
         return (
             <div>
-                Search Results for {fields.username}, Departure: {fields.departure}, Arrival: {fields.arrival}, Trip type: {fields.trip_type}
+                Reserved flight
+            </div>
+        );
+        
+    }
+
+    function validateForm() {
+        return fields.departure.length > 0 && fields.arrival.length > 0;
+    }
+
+    function handleBook() {
+        setReserve(true);
+    }
+
+    function renderResults() {
+
+        var rows = [];
+        for (var i = 0; i < 5; i += 1) {
+            rows.push(
+            <tr>
+                <td>flight_number {i}</td>
+                <td>type {i}</td><td>price {i}</td>
+                <td>Departure {i}</td>
+                <td>Depart Time {i}</td>
+                <td>Arrival {i}</td>
+                <td>Arival Time {i}</td>
+                <td>Airline {i}</td>
+                <td>Seats Availible {20-i}</td>
+                <td>
+                    <form onSubmit={handleBook}>
+                        <LoaderButton
+                            block
+                            type="submit"
+                            bsSize="small"
+                        >Reserve {i}</LoaderButton>
+                    </form>
+                </td>
+            </tr>
+            );
+        }
+        return (
+            <div>
+                <br />
+                <br />
+                <br />
+                Search Results for User {fields.username}, Departure: {fields.departure}, Arrival: {fields.arrival}, Trip type: {fields.trip_type}
+                <br />
+                <br />
+                <br />
                 <div>
-                    {response}
+                    <table class="flight-table">
+                        <div></div>
+                        <tr>
+                            <th> Flight Number </th>
+                            <th> Type </th>
+                            <th> Price </th>
+                            <th> Departure </th>
+                            <th> Depart Time </th>
+                            <th> Arrival </th>
+                            <th> Arrival Time </th>
+                            <th> Airline </th>
+                            <th> Seats Availible </th>
+                            <th> Book Flight </th>
+                        </tr>
+                        {rows}
+
+                    </table>
+                    {error_response ? error_response : response.result}
                 </div>
             </div>
         );
@@ -113,6 +181,7 @@ export default function Search(props) {
                         type="submit"
                         bsSize="large"
                         isLoading={false}
+                        disabled={!validateForm()}
                     >
                         Search
                     </LoaderButton>
@@ -128,7 +197,8 @@ export default function Search(props) {
 
     return (
         <div className="Search">
-            {recieved === false ? renderSearch() : renderResults()}
+            {reserve === false ? 
+                recieved === false ? renderSearch() : renderResults() : renderBook()}
         </div>
     );
 
