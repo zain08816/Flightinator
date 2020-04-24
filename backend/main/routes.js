@@ -15,7 +15,7 @@ VALUES('${req.body.username}', '${req.body.password}');`,
 })
 
 router.post('/api/posts/login', (req, res, next) => {
-    connection.query(`SELECT username,password FROM login WHERE username='${req.body.username}' AND password='${req.body.password}'`,
+    connection.query(`SELECT username,password FROM login WHERE username='${req.body.username}' AND password='${req.body.password}';`,
         (error, result) => {
             if (error) {
                 console.log(error);
@@ -28,13 +28,14 @@ router.post('/api/posts/customer_info', (req, res, next) => {
     return;
 })
 
-router.get('/api/get/search_flight', (req, res, next) => {
-    const user = req.query.username
-    console.log(username)
-    connection.query(`SELECT * FROM login
-                WHERE username=arjuuun`, [username],
+router.get('/api/posts/search_flight', (req, res, next) => {
+    console.log(req.body.departure);
+    console.log(req.body.arrival);
+    console.log(req.body.trip_type);
+    connection.query(`SELECT * FROM flights
+                WHERE departure='${req.body.departure}' AND arrival='${req.body.arrival}' AND trip_type='${req.body.trip_type}';`,
         (error, result) => {
-            res.json(q_res.rows)
+            res.send( error? {error:error} : {results:result})
         })
 })
 
