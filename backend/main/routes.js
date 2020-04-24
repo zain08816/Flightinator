@@ -24,6 +24,9 @@ router.post('/api/posts/login', (req, res, next) => {
         })
 })
 
+router.post('/api/posts/customer_info', (req, res, next) => {
+    return;
+})
 
 router.get('/api/get/search_flight', (req, res, next) => {
     const user = req.query.username
