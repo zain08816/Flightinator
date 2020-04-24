@@ -6,6 +6,7 @@ import Login from "./containers/Login";
 import AppliedRoute from "./components/AppliedRoute";
 import Signup from "./containers/Signup";
 import Control from "./containers/Control";
+import Customer from "./containers/Customer";
 
 
 export default function Routes({ appProps }) {
@@ -15,6 +16,7 @@ export default function Routes({ appProps }) {
             <AppliedRoute path="/login" exact component={Login} appProps={appProps} />
             <AppliedRoute path="/signup" exact component={Signup} appProps={appProps} />
             <AppliedRoute path="/control" exact component={Control} appProps={appProps} />
+            <AppliedRoute path="/customer" exact component={Customer} appProps={appProps} />
             <Route component={NotFound} />
         </Switch>
     );

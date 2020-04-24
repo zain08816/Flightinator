@@ -17,9 +17,9 @@ function App(props) {
   
 
 
-  function updateUser(newUser) {
-    setUser(newUser)
-  }
+  // function updateUser(newUser) {
+  //   setUser(newUser)
+  // }
 
   useEffect(() => {
     onLoad();
