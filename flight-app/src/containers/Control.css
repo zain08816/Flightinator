@@ -7,7 +7,7 @@
   
   .Control .title h2 {
     font-family: "Open Sans", sans-serif;
-    font-weight: 600;
+    font-weight: 400;
   }
   
   .Control .lander p { 
@@ -22,6 +22,11 @@
 .fs-container .form-group {
     margin-right: 8px;
     flex-grow: 1;
+}
+
+.fs-container .form-group .radio {
+  margin-right: 8px;
+  flex-grow: 1;
 }
 
 .fs-container .title {
