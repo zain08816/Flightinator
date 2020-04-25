@@ -8,6 +8,7 @@ import Signup from "./containers/Signup";
 import Control from "./containers/Control";
 import Customer from "./containers/Customer";
 import Reserve from "./containers/Reserve";
+import Admin from "./containers/Admin";
 
 
 export default function Routes({ appProps }) {
@@ -19,6 +20,7 @@ export default function Routes({ appProps }) {
             <AppliedRoute path="/control" exact component={Control} appProps={appProps} />
             <AppliedRoute path="/customer" exact component={Customer} appProps={appProps} />
             <AppliedRoute path="/reserve" exact component={Reserve} appProps={appProps} />
+            <AppliedRoute path="/admin" exact component={Admin} appProps={appProps} />
             <Route component={NotFound} />
         </Switch>
     );

@@ -13,6 +13,7 @@ function App(props) {
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [user, setUser] = useState("");
+  const [isAdmin, setAdmin] = useState(false);
   const cookies = new Cookies();
   
 
@@ -28,6 +29,7 @@ function App(props) {
   function onLoad() {
 
     if(cookies.get('username')) {
+      if(cookies.get('username') == "admin") setAdmin(true);
       userHasAuthenticated(true);
       setIsAuthenticating(false);
       setUser(cookies.get('username'));
@@ -35,6 +37,8 @@ function App(props) {
       userHasAuthenticated(false);
       setIsAuthenticating(false);
     }
+
+    
       
   }
 
@@ -44,6 +48,56 @@ function App(props) {
     setIsAuthenticating(false);
     userHasAuthenticated(false);
 
+  }
+
+  function renderLoggedIn(){
+    return(
+          <>
+            <NavItem>{user}'s Profile</NavItem>
+            <NavItem onClick={handleLogout}>Logout</NavItem>
+            <LinkContainer to="/control">
+              <NavItem>Search Flight</NavItem>
+            </LinkContainer>
+            <LinkContainer to ="/reserve">
+              <NavItem> Reserve Flight </NavItem>
+            </LinkContainer>
+          </>
+
+    );
+  }
+
+  function renderNotLoggedIn(){
+    return(
+          <>
+            <LinkContainer to="/signup">
+              <NavItem>Signup</NavItem>
+            </LinkContainer>
+            <LinkContainer to="/login">
+              <NavItem>Login</NavItem>
+            </LinkContainer>
+          </>
+    );
+  }
+
+  function renderAdmin(){
+
+    return(
+          <>
+            <LinkContainer to="/admin">
+            <NavItem>Admin Controls</NavItem>
+            </LinkContainer>
+            
+            <NavItem onClick={handleLogout}>Logout</NavItem>
+            <LinkContainer to="/control">
+              <NavItem>Search Flight</NavItem>
+            </LinkContainer>
+            <LinkContainer to ="/reserve">
+              <NavItem> Reserve Flight </NavItem>
+            </LinkContainer>
+          </>
+
+
+    );
   }
 
 
@@ -59,29 +113,14 @@ function App(props) {
           </Navbar.Brand>
         </Navbar.Header>
         <Nav pullRight>
-          {isAuthenticated
-            ? <>
-              <NavItem>{user}'s Profile</NavItem>
-              <NavItem onClick={handleLogout}>Logout</NavItem>
-              <LinkContainer to="/control">
-                <NavItem>Search Flight</NavItem>
-              </LinkContainer>
-              <LinkContainer to ="/reserve">
-                <NavItem> Reserve Flight </NavItem>
-              </LinkContainer>
-            </>
-            : <>
-              <LinkContainer to="/signup">
-                <NavItem>Signup</NavItem>
-              </LinkContainer>
-              <LinkContainer to="/login">
-                <NavItem>Login</NavItem>
-              </LinkContainer>
-            </>
+          {
+            isAuthenticated ? 
+            isAdmin? renderAdmin() : renderLoggedIn() : 
+            renderNotLoggedIn()
           }
         </Nav>
       </Navbar>
-      <Routes appProps={{ isAuthenticated, userHasAuthenticated, user, setUser }} />
+      <Routes appProps={{ isAuthenticated, userHasAuthenticated, user, setUser, setAdmin }} />
     </div>
   );
 }
