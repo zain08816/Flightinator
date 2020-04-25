@@ -33,13 +33,21 @@ router.post('/api/posts/search_flight', (req, res, next) => {
     console.log(req.body.departure);
     console.log(req.body.arrival);
     console.log(req.body.trip_type);
-    var type_query = ""
-    if (req.body.trip_type == "all") type_query = "(trip_type='one' OR trip_type='round')";
-    else type_query = `trip_type='${req.body.trip_type}'`
-    console.log(`SELECT * FROM flights
-    WHERE departure='${req.body.departure}' AND arrival='${req.body.arrival}' AND ${type_query}';`)
-    connection.query(`SELECT * FROM flights
-                WHERE departure='${req.body.departure}' AND arrival='${req.body.arrival}' AND ${type_query};`,
+    var type_query = "";
+    var query = "";
+    var place = "";
+    if (req.body.arrival == "" && req.body.trip_type == "all" && req.body.departure == "") {query = "SELECT * FROM flights";}
+    else { query = "SELECT * FROM flights WHERE"; }
+
+    if (req.body.departure != "" && req.body.arrival != "") {place = `departure='${req.body.departure}' AND arrival='${req.body.departure}'`;}
+    
+
+    if ((req.body.arrival != "" || req.body.departure != "") && req.body.trip_type != "all" ) { type_query = `AND trip_type='${req.body.trip_type}'`; }
+    else if (req.body.trip_type != "all") type_query = `trip_type='${req.body.trip_type}'`;
+
+
+    console.log(`${query} ${place} ${type_query};`)
+    connection.query(`${query} ${place} ${type_query};`,
         (error, result) => {
             res.send( error? {error:error} : {results:result})
         })
