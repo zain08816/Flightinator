@@ -8,25 +8,31 @@ const { inspect } = require("util");
 
 export default function Customer(props) {
 
-    const [received, setReceived] = useState(false)
     const [action, setAction] = useState("");
     const [fields, handleFieldChange] = useFormFields({
-        account_no: 0,
+        account_no: 1,
         name: "",
         email: "",
         phone_no: "",
         address: "",
         city: "",
         state: "",
-        zip: "",
+        zip_code: "",
         seat_preference: 0,
         meal_preference: ""
     })
     const [done, setDone] = useState("");
 
-    function handleAdd(event) { setAction("add"); }
-    function handleEdit(event) { setAction("edit"); }
-    function handleDelete(event) { setAction("delete"); }
+    function handleAdd(event) { 
+        setAction("add"); 
+    }
+    function handleEdit(event) { 
+        setAction("edit"); 
+        changeFormValues(fields.account_no);
+    }
+    function handleDelete(event) { 
+        setAction("delete"); 
+    }
     function renderAction(action) {
         return (
             <div>
@@ -51,7 +57,7 @@ export default function Customer(props) {
             address: fields.address,
             city: fields.city,
             state: fields.state,
-            zip: fields.zip,
+            zip_code: fields.zip_code,
             seat_preference: fields.seat_preference,
             meal_preference: fields.meal_preference
         })
@@ -119,11 +125,11 @@ export default function Customer(props) {
                         onChange={handleFieldChange}
                     />
                 </FormGroup>
-                <FormGroup controlId="zip" bsSize="large">
+                <FormGroup controlId="zip_code" bsSize="large">
                     <ControlLabel>ZIP Code</ControlLabel>
                     <FormControl
                         type="zip"
-                        value={fields.zip}
+                        value={fields.zip_code}
                         onChange={handleFieldChange}
                     />
                 </FormGroup>
@@ -152,6 +158,33 @@ export default function Customer(props) {
         )
     }
 
+    async function Account_noFieldChange(val) {
+        const value = val.target.value;
+        // handle the field change
+        handleFieldChange(val);
+        // change the form values
+        changeFormValues(value);
+    }
+
+    async function changeFormValues(account_no) {
+        // get information for that user and fill the fields
+        const res = await axios.post('/api/posts/customer_info', {
+            action: 'get',
+            account_no: account_no
+        });
+        if( res.data.error || res.data.result.length == 0 ) return;
+        const result = res.data.result[0];
+        for( const key in result ) {
+            handleFieldChange({
+                noReset: true,
+                target: {
+                    id: key,
+                    value: result[key]
+                }
+            })
+        }
+    }
+
     function renderEdit() {
         return (
             <form onSubmit={handleSubmit}>
@@ -161,7 +194,7 @@ export default function Customer(props) {
                         autoFocus
                         type="number"
                         value={fields.account_no}
-                        onChange={handleFieldChange}
+                        onChange={Account_noFieldChange}
                     />
                 </FormGroup>
                 <FormGroup controlId="name" bsSize="large">
@@ -213,11 +246,11 @@ export default function Customer(props) {
                         onChange={handleFieldChange}
                     />
                 </FormGroup>
-                <FormGroup controlId="zip" bsSize="large">
+                <FormGroup controlId="zip_code" bsSize="large">
                     <ControlLabel>ZIP Code</ControlLabel>
                     <FormControl
                         type="zip"
-                        value={fields.zip}
+                        value={fields.zip_code}
                         onChange={handleFieldChange}
                     />
                 </FormGroup>
@@ -299,18 +332,9 @@ export default function Customer(props) {
         );
     }
 
-    function renderConfirmation() {
-        return (
-            <div>
-                yes
-            </div>
-        );
-    }
-
     return (
         <div>
             {
-                received ? renderConfirmation() : 
                 action ? renderAction(action) : 
                 renderCustomer()
             }

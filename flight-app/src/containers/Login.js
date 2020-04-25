@@ -29,13 +29,13 @@ export default function Login(props) {
     }
 
     async function handleSubmit(event) {
+        setIsLoading(true);
         axios.post('/api/posts/login', {
             username: fields.username,
             password: fields.password
         })
         .then( res => {
             const error = res.data.error;
-            setIsLoading(true);
             if( error )
                 setDone(`Error encountered: ${inspect(error)}`);
             else if( res.data.result < 1 )

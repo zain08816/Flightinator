@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var connection = require('./db.js');
+const oneline = require('oneline');
 
 // Profile stuff
-// SQL SYNTAX isnt correct here
 router.post('/api/posts/signup', (req, res, next) => {
     if( !req.body.username || !req.body.password )
         throw 'Improperly formatted request.';
@@ -11,22 +11,62 @@ router.post('/api/posts/signup', (req, res, next) => {
 VALUES('${req.body.username}', '${req.body.password}');`,
         (error, result) => {
             res.send( error ? {error:error} : {} );
-        })
+        });
 })
 
 router.post('/api/posts/login', (req, res, next) => {
-    console.log(req.body.username);
+    console.log(`${req.body.username} has logged in.`);
     connection.query(`SELECT username,password FROM login WHERE username='${req.body.username}' AND password='${req.body.password}';`,
         (error, result) => {
             if (error) {
                 console.log(error);
             }
             res.send( error ? {error:error} : {result:result} );
-        })
+        });
 })
 
 router.post('/api/posts/customer_info', (req, res, next) => {
-    return;
+    if( req.body.action == 'add' ) {
+        connection.query(oneline`INSERT INTO customer (name, email, phone_no, address, city, state, zip_code, seat_preference, meal_preference)
+VALUES ('${req.body.name}', '${req.body.email}', '${req.body.phone_no}', '${req.body.address}', '${req.body.city}',
+'${req.body.state}', '${req.body.zip_code}', ${req.body.seat_preference}, '${req.body.meal_preference}');`,
+        (error, result) => {
+            if( error ) console.log( `SQL Error! Query: ${error.sql}` );
+            res.send( error ? {error:error} : {result:result} )
+        });
+    } else if( req.body.action == 'edit' ) {
+        let settingString = '';
+        for( const key in req.body )
+            if( key != 'account_no' && key != 'action' && req.body[key] != '' )
+                settingString += `${key} = '${req.body[key]}', `
+        connection.query(oneline`UPDATE customer
+SET ${settingString.substring(0,settingString.length-2)}
+WHERE account_no = ${req.body.account_no};`,
+        (error, result) => {
+            if( error ) console.log( error );
+            res.send( error ? {error:error} : {result:result} )
+        });
+    } else if( req.body.action == 'delete' ) {
+        connection.query(oneline`DELETE FROM customer
+WHERE account_no = ${req.body.account_no}`,
+        (error, result) => {
+            if( error ) console.log( error );
+            res.send( error ? {error:error} : {result:result} )
+        });
+    } else if( req.body.action == 'get' ) {
+        connection.query(oneline`SELECT name,email,phone_no,address,city,state,zip_code,seat_preference,meal_preference
+FROM customer
+WHERE account_no=${req.body.account_no};`,
+        (error,result) => {
+            if( error ) console.log(error);
+            res.send( error ? {error:error} : {result:result} )
+        })
+    } else
+        throw 'Uh oh an invalid action was passed to the customer_info route!';
+})
+
+router.post('/api/posts/salesreport', (req, res, next) => {
+    
 })
 
 router.post('/api/posts/search_flight', (req, res, next) => {

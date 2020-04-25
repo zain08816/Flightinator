@@ -94,6 +94,9 @@ function App(props) {
             <LinkContainer to ="/reserve">
               <NavItem> Reserve Flight </NavItem>
             </LinkContainer>
+            <LinkContainer to ="/customer">
+              <NavItem> Edit Customer Info </NavItem>
+            </LinkContainer>
           </>
 
 
