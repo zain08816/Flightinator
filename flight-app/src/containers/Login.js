@@ -45,6 +45,7 @@ export default function Login(props) {
                     // await Auth.signIn(fields.email, fields.password);
                     cookies.set('username', fields.username, { path: '/'})
                     props.setUser(fields.username);
+                    if(fields.username == 'admin') props.setAdmin(true);
                     props.userHasAuthenticated(true);
                     props.history.push("/");
                 } catch (e) {

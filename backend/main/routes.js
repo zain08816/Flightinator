@@ -57,6 +57,16 @@ router.post('/api/posts/reserve_flight', (req, res, next) => {
     console.log(req.body.user);
     console.log(req.body.flight_num);
     console.log(req.body.seats);
+    console.log(req.body.group);
+
+    const people = req.body.group.split(',');
+
+    for (var i = 0; i < people.length; i += 1) {
+        const person = people[i];
+        continue;
+    }
+
+
     
     connection.query(`INSERT INTO reservations VALUES('${req.body.user}', ${req.body.flight_num}, ${req.body.seats});`,
         (error, result) => {

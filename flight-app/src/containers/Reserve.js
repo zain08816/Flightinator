@@ -16,7 +16,7 @@ export default function Reserve(props) {
     const [fields, handFieldChange] = useFormFields({
         user: cookies.get('username'),
         flight_num: 0,
-        seats: 1
+        group: ""
     });
 
 
@@ -25,7 +25,8 @@ export default function Reserve(props) {
         axios.post('api/posts/reserve_flight', {
             user: fields.user,
             flight_num: fields.flight_num,
-            seats: fields.seats
+            seats: fields.group.split(",").length+1,
+            group: fields.group
         }).then( res => {
             const error_rep = res.data.error;
             if (error_rep) {
@@ -43,11 +44,15 @@ export default function Reserve(props) {
     }
 
     function validateForm() {
-        return fields.flight_num != 0 && fields.flight_num > 0 && fields.seats > 0;
+        return fields.flight_num != 0 && fields.flight_num > 0 && fields.group.split(",").length > 0;
     }
 
     function validateSeats() {
-        return fields.seats == 1;
+        return fields.group.split(",").length == 1;
+    }
+
+    function validateSeatsA() {
+        return fields.group == "";
     }
 
     
@@ -71,11 +76,19 @@ export default function Reserve(props) {
                             onChange={handFieldChange}
                         />
                     </FormGroup>
-                    <FormGroup controlId="seats" bsSize="sm">
-                        <ControlLabel>Seats to Book</ControlLabel>
+                    {/* <FormGroup controlId="seats" bsSize="sm">
+                        <ControlLabel>Passenger Ammount</ControlLabel>
                         <FormControl
                             type="number"
                             value={fields.seats}
+                            onChange={handFieldChange}
+                        />
+                    </FormGroup> */}
+                    <FormGroup controlId="group" bsSize="sm">
+                        <ControlLabel>Booking for more than youself? Put the usernames of the others (seperated by commas)</ControlLabel>
+                        <FormControl
+                            type="text"
+                            value={fields.group}
                             onChange={handFieldChange}
                         />
                     </FormGroup>
@@ -85,7 +98,7 @@ export default function Reserve(props) {
                         type
                         bsSize="larger"
                         disabled={!validateForm()}
-                        >Reserve {fields.seats} { validateSeats() ? "seat" : "seats"} on Flight Number {fields.flight_num}</LoaderButton>
+                        >Reserve {validateSeatsA() ? 1 : fields.group.split(",").length+1} { validateSeats()&&validateSeatsA() ? "seat" : "seats"} on Flight Number {fields.flight_num}</LoaderButton>
                         
                 </form>
 
@@ -97,7 +110,7 @@ export default function Reserve(props) {
     function renderConfirm() {
         return(
             <div>
-                {error_response ? `Sorry, but we cant process your request right now, please check back another time. ERROR:${error_response}` : 'Thanks for Reserving a flight with us!' }
+                {error_response ? `Sorry, but we cant process your request right now, please check back another time. ERROR: ${error_response}` : 'Thanks for Reserving a flight with us!' }
             </div>
         );
     }
