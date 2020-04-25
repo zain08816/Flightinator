@@ -53,6 +53,20 @@ router.post('/api/posts/search_flight', (req, res, next) => {
         })
 })
 
+router.post('/api/posts/reserve_flight', (req, res, next) => {
+    console.log(req.body.user);
+    console.log(req.body.flight_num);
+    console.log(req.body.seats);
+    
+    connection.query(`INSERT INTO reservations VALUES('${req.body.user}', ${req.body.flight_num}, ${req.body.seats});`,
+        (error, result) => {
+            if (error) {
+                console.log(error);
+            }
+            res.send(error ? {error:error} : {result:result})
+        })
+})
+
 router.get('/api/get/checkuser', (req, res, next) => {
     const values = [req.query.username, req.query.passowrd]
     console.log(username)

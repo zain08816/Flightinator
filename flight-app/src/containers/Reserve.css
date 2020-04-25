@@ -1,0 +1,17 @@
+.Reserve .flight-table {
+    font-family: "Open Sans", sans-serif;
+    order: solid 1px #4CAF50;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  
+  .Reserve .title h2{
+    font-family: "Open Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 200;
+  }
+  
+  .Reserve .lander p { 
+    color: #999;
+  }
+

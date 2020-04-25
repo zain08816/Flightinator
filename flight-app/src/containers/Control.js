@@ -10,6 +10,8 @@ import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import Cookies from 'universal-cookie'
 import axios from "axios";
+import Routes from "../Routes"
+import { LinkContainer } from "react-router-bootstrap";
 
 export default function Search(props) {
 
@@ -25,8 +27,6 @@ export default function Search(props) {
     const [recieved, setRecieved] = useState(false);
     const [response, setResponse] = useState("");
     const [error_response, setError] = useState("");
-    const [flight, setFlight]  = useState(0);
-    const [reserve, setReserve] = useState(false)
 
     async function handleSubmit(event) {
 
@@ -54,22 +54,10 @@ export default function Search(props) {
         
     }
 
-    function renderBook() {
-
-        return (
-            <div>
-                Reserved flight
-            </div>
-        );
-        
-    }
+  
 
     function validateForm() {
         return fields.departure.length > 0 && fields.arrival.length > 0;
-    }
-
-    function handleBook() {
-        setReserve(true);
     }
 
     function renderResults() {
@@ -87,13 +75,13 @@ export default function Search(props) {
                 <td>Airline {i}</td>
                 <td>Seats Availible {20-i}</td>
                 <td>
-                    <form onSubmit={handleBook}>
+                    <LinkContainer to="/reserve">
                         <LoaderButton
                             block
                             type="submit"
                             bsSize="small"
                         >Reserve {i}</LoaderButton>
-                    </form>
+                    </LinkContainer>
                 </td>
             </tr>
             );
@@ -197,8 +185,7 @@ export default function Search(props) {
 
     return (
         <div className="Search">
-            {reserve === false ? 
-                recieved === false ? renderSearch() : renderResults() : renderBook()}
+            { recieved === false ? renderSearch() : renderResults() }
         </div>
     );
 
