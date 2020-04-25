@@ -64,7 +64,10 @@ function App(props) {
               <NavItem>{user}'s Profile</NavItem>
               <NavItem onClick={handleLogout}>Logout</NavItem>
               <LinkContainer to="/control">
-                <NavItem>Control Panel</NavItem>
+                <NavItem>Search Flight</NavItem>
+              </LinkContainer>
+              <LinkContainer to ="/reserve">
+                <NavItem> Reserve Flight </NavItem>
               </LinkContainer>
             </>
             : <>
