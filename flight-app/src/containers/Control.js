@@ -4,6 +4,7 @@ import {
     FormGroup,
     FormControl,
     ControlLabel,
+    Checkbox,
     Form
 } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
@@ -19,18 +20,20 @@ export default function Search(props) {
 
 
     const [fields, handleFieldChange] = useFormFields({
+        all: "no",
         departure: "",
         arrival: "",
         trip_type: "all",
         username: cookies.get('username')
     });
     const [recieved, setRecieved] = useState(false);
-    const [response, setResponse] = useState({});
+    const [response, setResponse] = useState([]);
     const [error_response, setError] = useState("");
 
     async function handleSubmit(event) {
 
         axios.post('/api/posts/search_flight', {
+            all : fields.all,
             departure: fields.departure,
             arrival: fields.arrival,
             trip_type: fields.trip_type
@@ -41,7 +44,7 @@ export default function Search(props) {
                 setError(error.sqlMessage);
                 
             } else {
-                setResponse(res.data)
+                setResponse(Object.values(res.data.result));
                 setRecieved(true);
             } 
         }).catch( err => {
@@ -50,37 +53,46 @@ export default function Search(props) {
 
         event.preventDefault()
         setRecieved(true);
-    
-        
     }
 
   
 
     function validateForm() {
-        return fields.departure.length > 0 && fields.arrival.length > 0;
+        return (fields.departure.length > 0 && fields.arrival.length > 0) || fields.all.length==3;
+    }
+
+    function checkAll(){
+        return fields.all == "yes"
     }
 
     function renderResults() {
 
+        console.log(response);
+        console.log(error_response);
+
         var rows = [];
-        for (var i = 0; i < 5; i += 1) {
+
+        if (response.length < 1) {rows.push( "Sorry, there are no flights given your search criteria");}
+
+        for ( var i = 0;  i < response.length; i += 1) {
             rows.push(
             <tr>
-                <td>flight_number {i}</td>
-                <td>type {i}</td><td>price {i}</td>
-                <td>Departure {i}</td>
-                <td>Depart Time {i}</td>
-                <td>Arrival {i}</td>
-                <td>Arival Time {i}</td>
-                <td>Airline {i}</td>
-                <td>Seats Availible {20-i}</td>
+                <td> {response[i]['flight_no']} </td>
+                <td> {response[i]['departure']} </td>
+                <td> {response[i]['dept_time']} </td>
+                <td> {response[i]['arrival']} </td>
+                <td> {response[i]['arriv_time']} </td>
+                <td> {response[i]['trip_type']} </td>
+                <td> {response[i]['airline_id']} </td>
+                <td> {response[i]['price']} </td>
+                <td> {20 -response[i]['seats_booked']} </td>
                 <td>
                     <LinkContainer to="/reserve">
                         <LoaderButton
                             block
                             type="submit"
                             bsSize="small"
-                        >Reserve {i}</LoaderButton>
+                        >Reserve flight {response[i]['flight_no']} </LoaderButton>
                     </LinkContainer>
                 </td>
             </tr>
@@ -88,32 +100,35 @@ export default function Search(props) {
         }
         return (
             <div>
-                <br />
-                <br />
-                <br />
-                Search Results for User {fields.username}, Departure: {fields.departure}, Arrival: {fields.arrival}, Trip type: {fields.trip_type}
-                <br />
-                <br />
-                <br />
+
+                { 
+                    checkAll() ? 'Search Results for All Flights' :
+                    `Search Results for User ${fields.username}, Departure: ${fields.departure}, Arrival: ${fields.arrival}, Trip type: ${fields.trip_type}.`
+                }
+
+                <br></br>
+                <br></br>
+            
                 <div>
                     <table class="flight-table">
                         <div></div>
                         <tr>
                             <th> Flight Number </th>
-                            <th> Type </th>
-                            <th> Price </th>
-                            <th> Departure </th>
-                            <th> Depart Time </th>
-                            <th> Arrival </th>
+                            <th> Origin Airport </th>
+                            <th> Departure Time </th>
+                            <th> Arrival Airport </th>
                             <th> Arrival Time </th>
+                            <th> Trip Type </th>
                             <th> Airline </th>
-                            <th> Seats Availible </th>
+                            <th> Price </th>
+                            <th> Seats Available </th>
                             <th> Book Flight </th>
                         </tr>
                         {rows}
 
                     </table>
-                    {error_response ? error_response : response.result}
+                    
+                    {error_response ?  `Sorry, we cant complete your search right now. ERROR: ${error_response}` : "" }
                 </div>
             </div>
         );
@@ -123,6 +138,7 @@ export default function Search(props) {
     function renderSearch() {
 
         return (
+            <div>
             <div className="fs-container">
                 <Form onSubmit={handleSubmit} className="Control">
                 <h2 className="title">
@@ -162,8 +178,17 @@ export default function Search(props) {
                             <option value="all" >All</option>
                         </FormControl>
                     </FormGroup>
-                        
+                    <FormGroup controlId="all">
+                        <FormControl
+                            componentClass="select"
+                            placeholder="not all"
+                            value = {fields.all}
+                            onChange={handleFieldChange}>
 
+                            <option value="no" >Search for a Flight</option>
+                            <option value="yes" >Show me all Flights</option>
+                        </FormControl>
+                    </FormGroup>
                     <LoaderButton
                         block
                         type="submit"
@@ -174,9 +199,37 @@ export default function Search(props) {
                         Search
                     </LoaderButton>
                 </Form>
-
             </Form>
+            <br></br>
+            
 
+            </div>
+
+                {/* <Form onSubmit={handleAll}>
+                    <FormGroup controlId="all">
+                        <FormControl
+                            componentClass="select"
+                            placeholder="not all"
+                            value = {fields.all}
+                            onChange={handleFieldChange}>
+
+                            <option value="no" >Search for a Flight</option>
+                            <option value="all" >One Way</option>
+                        </FormControl>
+
+
+                    </FormGroup>
+                    <LoaderButton
+                        block
+                        type="submit"
+                        bsSize="large"
+                        disabled={validateForm()}
+                    >
+                    See All Flights?
+                    </LoaderButton>
+
+
+                </Form> */}
             </div>
             
         );
