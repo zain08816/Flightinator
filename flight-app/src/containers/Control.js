@@ -25,7 +25,7 @@ export default function Search(props) {
         username: cookies.get('username')
     });
     const [recieved, setRecieved] = useState(false);
-    const [response, setResponse] = useState("");
+    const [response, setResponse] = useState({});
     const [error_response, setError] = useState("");
 
     async function handleSubmit(event) {
