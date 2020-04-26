@@ -4,6 +4,7 @@ import axios from 'axios';
 import LoaderButton from "../components/LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import DataGrid from 'react-data-grid';
 
 export default function SalesReport(props) {
     const [month, setMonth] = useState(0);
@@ -16,7 +17,14 @@ export default function SalesReport(props) {
         setMonth(fields.month);
         // post request
         axios.post('/api/posts/salesreport', {
-
+            month: fields.month
+        })
+        .then( res => {
+            const error = res.data.error;
+            if( error ) return;
+        })
+        .catch( err => {
+            if( err ) console.log(`API Error: ${err}`);
         })
 
         event.preventDefault();

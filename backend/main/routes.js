@@ -66,7 +66,14 @@ WHERE account_no=${req.body.account_no};`,
 })
 
 router.post('/api/posts/salesreport', (req, res, next) => {
-    
+    const month = req.body.month;
+    connection.query(oneline`SELECT * 
+FROM reservations
+WHERE EXTRACT(MONTH from DATE)=${month}`,
+    (error, result) => {
+        if( error ) console.log( error );
+        res.send( error ? {error:error} : {result:result} );
+    });
 })
 
 router.post('/api/posts/search_flight', (req, res, next) => {
