@@ -10,6 +10,8 @@ import Customer from "./containers/Customer";
 import Reserve from "./containers/Reserve";
 import Admin from "./containers/Admin";
 import SalesReport from "./containers/SalesReport";
+import FlightsList from "./containers/flightsList"
+import ReservationList from "./containers/reservationList"
 import MyReservations from "./containers/MyReservations";
 
 
@@ -22,6 +24,8 @@ export default function Routes({ appProps }) {
             <AppliedRoute path="/control" exact component={Control} appProps={appProps} />
             <AppliedRoute path="/customer" exact component={Customer} appProps={appProps} />
             <AppliedRoute path="/salesreport" exact component={SalesReport} appProps={appProps} />
+            <AppliedRoute path="/flightsList" exact component={FlightsList} appProps={appProps} />
+            <AppliedRoute path="/reservationList" exact component={ReservationList} appProps={appProps} />
             <AppliedRoute path="/reserve" exact component={Reserve} appProps={appProps} />
             <AppliedRoute path="/admin" exact component={Admin} appProps={appProps} />
             <AppliedRoute path="/myreservations" exact component={MyReservations} appProps={appProps} />

@@ -76,6 +76,35 @@ WHERE EXTRACT(MONTH from DATE)=${month}`,
     });
 })
 
+router.post('/api/posts/salesreportjoin', (req, res, next) => {
+    connection.query(oneline`SELECT * FROM flights f JOIN reservations r ON f.flight_no = r.flight_num;`,
+    (error, result) => {
+        if( error ) console.log( error );
+        res.send( error ? {error:error} : {result:result} );
+    });
+})
+
+router.post('/api/posts/flightsList', (req, res, next) => {
+    connection.query(oneline`SELECT * FROM flights;`,
+    (error, result) => {
+        if( error ) console.log( error );
+        res.send( error ? {error:error} : {result:result} );
+    });
+})
+
+router.post('/api/posts/reservationList', (req, res, next) => {
+    const flight_no = req.body.flight_no;
+    const customer_name = req.body.name;
+    const searchNameOrFlight = customer_name.length > 0; // search by name is true, by flight is false
+    const queryString = searchNameOrFlight ? `SELECT * FROM reservations GROUP BY user='${customer_name}';`
+    : `SELECT * FROM reservations GROUP BY flight_num=${flight_no};`
+    connection.query(queryString,
+    (error, result) => {
+        if( error ) console.log( error );
+        res.send( error ? {error:error} : {result:result} );
+    });
+})
+
 router.post('/api/posts/search_flight', (req, res, next) => {
     console.log(req.body.departure);
     console.log(req.body.arrival);
