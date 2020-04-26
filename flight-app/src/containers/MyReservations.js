@@ -28,7 +28,7 @@ export default function MyReservations(props) {
 
     async function getData(event) {
 
-        axios.post('/api/post/get_reservation', {
+        axios.post('/api/post/get_reservations', {
             username: username
         })
         .then( res => {
@@ -42,7 +42,8 @@ export default function MyReservations(props) {
         }).catch( err => {
             if(err) console.log(`API Error: ${err}`);
         });
-  
+
+
     }
 
 

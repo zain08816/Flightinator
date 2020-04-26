@@ -124,6 +124,12 @@ router.post('/api/posts/reserve_flight', (req, res, next) => {
         })
 })
 
+
+
+router.post('api/posts/get_reservations', (req, res, next) => {
+    console.log("Getting Reservations")
+})
+
 router.get('/api/get/checkuser', (req, res, next) => {
     const values = [req.query.username, req.query.passowrd]
     console.log(username)
