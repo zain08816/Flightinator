@@ -107,6 +107,27 @@ router.post('/api/posts/reservationList', (req, res, next) => {
     });
 })
 
+router.post('/api/posts/revenue', (req, res, next) => {
+    const flight_no = req.body.flight_no;
+    const destination = req.body.destination;
+    const username = req.body.username;
+
+    const joinedNestedQuery = "SELECT * FROM flights f JOIN reservations r ON f.flight_no=r.flight_num";
+    let queryString = `SELECT sum(j.fare) revenue,j.user,j.arrival,j.flight_no FROM (${joinedNestedQuery}) AS j WHERE `;
+    if( flight_no ) queryString += `j.flight_no=${flight_no} `;
+    if( destination ) queryString += `j.arrival='${destination}' `;
+    if( username ) queryString += `j.user='${username}' `;
+    queryString += `GROUP BY j.user,j.arrival,j.flight_no;`;
+
+    // console.log(`Built query: ${queryString}`);
+
+    connection.query(queryString,
+        (error, result) => {
+            if( error ) console.log( error );
+            res.send( error ? {error:error} : {result:result} );
+        });
+})
+
 router.post('/api/posts/search_flight', (req, res, next) => {
     console.log(req.body.departure);
     console.log(req.body.arrival);
