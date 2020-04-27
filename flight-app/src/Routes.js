@@ -15,7 +15,7 @@ import ReservationList from "./containers/reservationList";
 import Revenue from "./containers/Revenue";
 import MyReservations from "./containers/MyReservations";
 import Profile from "./containers/Profile";
-
+import Activeflights from "./containers/activeFlights";
 
 export default function Routes({ appProps }) {
     return (
@@ -33,6 +33,7 @@ export default function Routes({ appProps }) {
             <AppliedRoute path="/admin" exact component={Admin} appProps={appProps} />
             <AppliedRoute path="/myreservations" exact component={MyReservations} appProps={appProps} />
             <AppliedRoute path="/profile" exact component={Profile} appProps={appProps} />
+            <AppliedRoute path="/activeFlights" exact component={Activeflights} appProps={appProps} />
             <Route component={NotFound} />
         </Switch>
     );
