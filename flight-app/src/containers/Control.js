@@ -36,7 +36,7 @@ export default function Search(props) {
             all : fields.all,
             departure: fields.departure,
             arrival: fields.arrival,
-            trip_type: fields.trip_type
+            trip_type: fields.trip_type,
         })
         .then( res => {
             const error = res.data.error;
@@ -58,7 +58,7 @@ export default function Search(props) {
   
 
     function validateForm() {
-        return (fields.departure.length > 0 && fields.arrival.length > 0) || fields.all.length==3;
+        return (fields.departure.length > 0 && fields.arrival.length > 0) || fields.all.length>2 || (fields.all == "id" && fields.departure.length > 0);
     }
 
     function checkAll(){
@@ -75,6 +75,38 @@ export default function Search(props) {
         if (response.length < 1) {rows.push( "Sorry, there are no flights given your search criteria");}
 
         for ( var i = 0;  i < response.length; i += 1) {
+
+            if (fields.all == "active"){
+                var today = new Date();
+                var deptarture = response[i].dept_time.split('T')[0].split('-')[2];
+
+                console.log(deptarture);
+                console.log(today.getDate());
+                if (today.getDate() == deptarture){
+                    rows.push(
+                        <tr>
+                            <td> {response[i]['flight_no']} </td>
+                            <td> {response[i]['departure']} </td>
+                            <td> {response[i]['dept_time']} </td>
+                            <td> {response[i]['arrival']} </td>
+                            <td> {response[i]['arriv_time']} </td>
+                            <td> {response[i]['trip_type']} </td>
+                            <td> {response[i]['airline_id']} </td>
+                            <td> {response[i]['price']} </td>
+                            <td> {20 -response[i]['seats_booked']} </td>
+                            <td>
+                                <LinkContainer to="/reserve">
+                                    <LoaderButton
+                                        block
+                                        type="submit"
+                                        bsSize="small"
+                                    >Reserve flight {response[i]['flight_no']} </LoaderButton>
+                                </LinkContainer>
+                            </td>
+                        </tr>)
+                }
+            }
+            else    {
             rows.push(
             <tr>
                 <td> {response[i]['flight_no']} </td>
@@ -97,6 +129,7 @@ export default function Search(props) {
                 </td>
             </tr>
             );
+            }
         }
         return (
             <div>
@@ -164,6 +197,16 @@ export default function Search(props) {
                             onChange={handleFieldChange}>
                         </FormControl>
                     </FormGroup>
+                    
+                    {/* <FormGroup controlId="airport">
+                        <FormControl
+                            type="text"
+                            placeholder="Airport"
+                            value={fields.airport}
+                            onChange={handleFieldChange}>
+                        </FormControl>
+                    </FormGroup> */}
+                    
                     <FormGroup controlId="trip_type">
 
                         <FormControl
@@ -184,9 +227,12 @@ export default function Search(props) {
                             placeholder="not all"
                             value = {fields.all}
                             onChange={handleFieldChange}>
+                            
 
                             <option value="no" >Search for a Flight</option>
+                            <option value="id" >Search by Airport</option>
                             <option value="yes" >Show me all Flights</option>
+                            <option value="active" >Show me all Active Flights</option>
                         </FormControl>
                     </FormGroup>
                     <LoaderButton

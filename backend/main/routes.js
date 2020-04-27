@@ -137,11 +137,14 @@ router.post('/api/posts/search_flight', (req, res, next) => {
     var query = "";
     var place = "";
 
-    if (req.body.all == "yes") {
+    if (req.body.all == "yes" || req.body.all == "active") {
 
         query = "SELECT flight_no, departure, dept_time, arrival, arriv_time, trip_type, airline_id, price, seats_booked FROM flights";
 
-        
+    } else if (req.body.all == "id"){
+
+        query = `SELECT flight_no, departure, dept_time, arrival, arriv_time, trip_type, airline_id, price, seats_booked FROM flights WHERE departure = '${req.body.departure}'`;
+
     } else {
 
        query = "SELECT flight_no, departure, dept_time, arrival, arriv_time, trip_type, airline_id, price, seats_booked FROM flights WHERE"; 
