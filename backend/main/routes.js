@@ -39,16 +39,18 @@ VALUES ('${req.body.name}', '${req.body.email}', '${req.body.phone_no}', '${req.
         for( const key in req.body )
             if( key != 'account_no' && key != 'action' && req.body[key] != '' )
                 settingString += `${key} = '${req.body[key]}', `
-        connection.query(oneline`UPDATE customer
+        const queryString = oneline`UPDATE customer
 SET ${settingString.substring(0,settingString.length-2)}
-WHERE account_no = ${req.body.account_no};`,
+WHERE username='${req.body.username}';`;
+        console.log(queryString);
+        connection.query(queryString,
         (error, result) => {
             if( error ) console.log( error );
             res.send( error ? {error:error} : {result:result} )
         });
     } else if( req.body.action == 'delete' ) {
         connection.query(oneline`DELETE FROM customer
-WHERE account_no = ${req.body.account_no}`,
+WHERE username = '${req.body.username}';`,
         (error, result) => {
             if( error ) console.log( error );
             res.send( error ? {error:error} : {result:result} )
@@ -56,7 +58,7 @@ WHERE account_no = ${req.body.account_no}`,
     } else if( req.body.action == 'get' ) {
         connection.query(oneline`SELECT name,email,phone_no,address,city,state,zip_code,seat_preference,meal_preference
 FROM customer
-WHERE account_no=${req.body.account_no};`,
+WHERE username='${req.body.username}';`,
         (error,result) => {
             if( error ) console.log(error);
             res.send( error ? {error:error} : {result:result} )

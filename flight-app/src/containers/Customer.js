@@ -7,10 +7,11 @@ import axios from 'axios';
 const { inspect } = require("util");
 
 export default function Customer(props) {
-
+    const [username, setUsername] = useState("");
     const [action, setAction] = useState("");
     const [fields, handleFieldChange] = useFormFields({
         account_no: 1,
+        username: "",
         name: "",
         email: "",
         phone_no: "",
@@ -48,9 +49,11 @@ export default function Customer(props) {
     }
 
     async function handleSubmit(event) {
-        axios.post('api/posts/customer_info', {
+        const sendingUsername = fields.username && fields.username.length > 0 ? fields.username : username
+        axios.post('/api/posts/customer_info', {
             action: action,
             account_no: fields.account_no,
+            username: sendingUsername,
             name: fields.name,
             email: fields.email,
             phone_no: fields.phone_no,
@@ -158,19 +161,20 @@ export default function Customer(props) {
         )
     }
 
-    async function Account_noFieldChange(val) {
+    async function usernameFieldChange(val) {
         const value = val.target.value;
+        setUsername(value);
         // handle the field change
         handleFieldChange(val);
         // change the form values
         changeFormValues(value);
     }
 
-    async function changeFormValues(account_no) {
+    async function changeFormValues(username) {
         // get information for that user and fill the fields
         const res = await axios.post('/api/posts/customer_info', {
             action: 'get',
-            account_no: account_no
+            username: username
         });
         if( res.data.error || res.data.result.length == 0 ) return;
         const result = res.data.result[0];
@@ -188,13 +192,13 @@ export default function Customer(props) {
     function renderEdit() {
         return (
             <form onSubmit={handleSubmit}>
-                <FormGroup controlId="account_no" bsSize="large">
-                    <ControlLabel>Account Number to Edit</ControlLabel>
+                <FormGroup controlId="username" bsSize="large">
+                    <ControlLabel>Username to Edit</ControlLabel>
                     <FormControl
                         autoFocus
-                        type="number"
-                        value={fields.account_no}
-                        onChange={Account_noFieldChange}
+                        type="username"
+                        value={fields.username}
+                        onChange={usernameFieldChange}
                     />
                 </FormGroup>
                 <FormGroup controlId="name" bsSize="large">
@@ -282,12 +286,12 @@ export default function Customer(props) {
     function renderDelete() {
         return (
             <form onSubmit={handleSubmit}>
-                <FormGroup controlId="account_no" bsSize="large">
-                    <ControlLabel>Account Number to Delete</ControlLabel>
+                <FormGroup controlId="username" bsSize="large">
+                    <ControlLabel>Username to Delete</ControlLabel>
                     <FormControl
                         autoFocus
-                        type="number"
-                        value={fields.account_no}
+                        type="username"
+                        value={fields.username}
                         onChange={handleFieldChange}
                     />
                     <LoaderButton
