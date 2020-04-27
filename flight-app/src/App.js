@@ -94,11 +94,17 @@ function App(props) {
             <LinkContainer to="/control">
               <NavItem>Search Flight</NavItem>
             </LinkContainer>
-            <LinkContainer to ="/reserve">
-              <NavItem> Reserve Flight </NavItem>
-            </LinkContainer>
             <LinkContainer to ="/customer">
               <NavItem> Edit Customer Info </NavItem>
+            </LinkContainer>
+            <LinkContainer to ="/salesreport">
+              <NavItem> Get Sales Reports </NavItem>
+            </LinkContainer>
+            <LinkContainer to ="/flightsList">
+              <NavItem> Get List of all Flights </NavItem>
+            </LinkContainer>
+            <LinkContainer to ="/reservationList">
+              <NavItem> List of Reservations </NavItem>
             </LinkContainer>
           </>
 
