@@ -141,15 +141,19 @@ router.post('/api/posts/search_flight', (req, res, next) => {
 
         query = "SELECT flight_no, departure, dept_time, arrival, arriv_time, trip_type, airline_id, price, seats_booked FROM flights";
 
-    } else if (req.body.all == "id"){
+    } else if (req.body.all == "start"){
 
-        query = `SELECT flight_no, departure, dept_time, arrival, arriv_time, trip_type, airline_id, price, seats_booked FROM flights WHERE departure = '${req.body.departure}'`;
+        query = `SELECT flight_no, departure, dept_time, arrival, arriv_time, trip_type, airline_id, price, seats_booked FROM flights WHERE departure='${req.body.departure}'`;
+    
+    } else if (req.body.all == "end"){
+
+        query = `SELECT flight_no, departure, dept_time, arrival, arriv_time, trip_type, airline_id, price, seats_booked FROM flights WHERE arrival='${req.body.arrival}'`;
 
     } else {
 
        query = "SELECT flight_no, departure, dept_time, arrival, arriv_time, trip_type, airline_id, price, seats_booked FROM flights WHERE"; 
     
-        if (req.body.departure != "" && req.body.arrival != "") {place = `departure='${req.body.departure}' AND arrival='${req.body.departure}'`;}
+        if (req.body.departure != "" && req.body.arrival != "") {place = `departure='${req.body.departure}' AND arrival='${req.body.arrival}'`;}
         
     
         if ((req.body.arrival != "" || req.body.departure != "") && req.body.trip_type != "all" ) { type_query = `AND trip_type='${req.body.trip_type}'`; }

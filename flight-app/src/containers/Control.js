@@ -58,7 +58,8 @@ export default function Search(props) {
   
 
     function validateForm() {
-        return (fields.departure.length > 0 && fields.arrival.length > 0) || fields.all.length>2 || (fields.all == "id" && fields.departure.length > 0);
+        return (fields.departure.length > 0 && fields.arrival.length > 0) || fields.all.length>2 || (fields.all == "start" && fields.departure.length > 0) ||
+        (fields.all == "end" && fields.arrival.length > 0) ;
     }
 
     function checkAll(){
@@ -230,7 +231,8 @@ export default function Search(props) {
                             
 
                             <option value="no" >Search for a Flight</option>
-                            <option value="id" >Search by Airport</option>
+                            <option value="start" >Search by Origin</option>
+                            <option value="end" >Search by Destination</option>
                             <option value="yes" >Show me all Flights</option>
                             <option value="active" >Show me all Active Flights</option>
                         </FormControl>
