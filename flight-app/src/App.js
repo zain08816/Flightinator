@@ -53,7 +53,9 @@ function App(props) {
   function renderLoggedIn(){
     return(
           <>
-            <NavItem>{user}'s Profile</NavItem>
+            <LinkContainer to="/profile">
+              <NavItem>{user}'s Profile</NavItem>
+            </LinkContainer>
             <NavItem onClick={handleLogout}>Logout</NavItem>
             <LinkContainer to="/control">
               <NavItem>Search Flight</NavItem>

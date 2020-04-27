@@ -10,9 +10,10 @@ import Customer from "./containers/Customer";
 import Reserve from "./containers/Reserve";
 import Admin from "./containers/Admin";
 import SalesReport from "./containers/SalesReport";
-import FlightsList from "./containers/flightsList"
-import ReservationList from "./containers/reservationList"
+import FlightsList from "./containers/flightsList";
+import ReservationList from "./containers/reservationList";
 import MyReservations from "./containers/MyReservations";
+import Profile from "./containers/Profile";
 
 
 export default function Routes({ appProps }) {
@@ -29,6 +30,7 @@ export default function Routes({ appProps }) {
             <AppliedRoute path="/reserve" exact component={Reserve} appProps={appProps} />
             <AppliedRoute path="/admin" exact component={Admin} appProps={appProps} />
             <AppliedRoute path="/myreservations" exact component={MyReservations} appProps={appProps} />
+            <AppliedRoute path="/profile" exact component={Profile} appProps={appProps} />
             <Route component={NotFound} />
         </Switch>
     );
