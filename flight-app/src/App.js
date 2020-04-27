@@ -108,6 +108,9 @@ function App(props) {
             <LinkContainer to ="/reservationList">
               <NavItem> List of Reservations </NavItem>
             </LinkContainer>
+            <LinkContainer to ="/revenue">
+              <NavItem> Lookup Revenue Generated </NavItem>
+            </LinkContainer>
           </>
 
 
