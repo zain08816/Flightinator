@@ -95,7 +95,7 @@ export default function Reserve(props) {
                 
                     <LoaderButton
                         block
-                        type
+                        type="submit"
                         bsSize="larger"
                         disabled={!validateForm()}
                         >Reserve {validateSeatsA() ? 1 : fields.group.split(",").length+1} { validateSeats()&&validateSeatsA() ? "seat" : "seats"} on Flight Number {fields.flight_num}</LoaderButton>

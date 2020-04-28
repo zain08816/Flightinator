@@ -89,7 +89,7 @@ function App(props) {
     return(
           <>
             <LinkContainer to="/admin">
-            <NavItem>Admin Controls</NavItem>
+              <NavItem>Admin Controls</NavItem>
             </LinkContainer>
             
             <NavItem onClick={handleLogout}>Logout</NavItem>
@@ -111,9 +111,10 @@ function App(props) {
             <LinkContainer to ="/revenue">
               <NavItem> Lookup Revenue Generated </NavItem>
             </LinkContainer>
+            <LinkContainer to ="/customerreservation">
+              <NavItem> Customer reservation List </NavItem>
+            </LinkContainer>
           </>
-
-
     );
   }
 

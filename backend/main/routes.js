@@ -107,6 +107,19 @@ router.post('/api/posts/reservationList', (req, res, next) => {
     });
 })
 
+router.post('/api/posts/customerReservations', (req, res, next) => {
+
+    var query = `SELECT * FROM reservations GROUP BY flight_num=${req.body.flight_no}`
+
+    console.log(query);
+    
+    connection.query(query, (error, result) => {
+        if(error) console.log(error);
+        res.send(error ? {error:error} : {result:result})
+    });
+
+})
+
 router.post('/api/posts/revenue', (req, res, next) => {
     const flight_no = req.body.flight_no;
     const destination = req.body.destination;
@@ -138,24 +151,14 @@ router.post('/api/posts/search_flight', (req, res, next) => {
     var place = "";
 
     if (req.body.all == "yes" || req.body.all == "active") {
-
         query = "SELECT flight_no, departure, dept_time, arrival, arriv_time, trip_type, airline_id, price, seats_booked FROM flights";
-
     } else if (req.body.all == "start"){
-
         query = `SELECT flight_no, departure, dept_time, arrival, arriv_time, trip_type, airline_id, price, seats_booked FROM flights WHERE departure='${req.body.departure}'`;
-    
     } else if (req.body.all == "end"){
-
         query = `SELECT flight_no, departure, dept_time, arrival, arriv_time, trip_type, airline_id, price, seats_booked FROM flights WHERE arrival='${req.body.arrival}'`;
-
     } else {
-
        query = "SELECT flight_no, departure, dept_time, arrival, arriv_time, trip_type, airline_id, price, seats_booked FROM flights WHERE"; 
-    
         if (req.body.departure != "" && req.body.arrival != "") {place = `departure='${req.body.departure}' AND arrival='${req.body.arrival}'`;}
-        
-    
         if ((req.body.arrival != "" || req.body.departure != "") && req.body.trip_type != "all" ) { type_query = `AND trip_type='${req.body.trip_type}'`; }
         else if (req.body.trip_type != "all") {type_query = `trip_type='${req.body.trip_type}'`; }
 
