@@ -20,15 +20,15 @@ export default function FlightsList(props) {
             results.forEach(queryRow => {
                 rows.push (
                     <tr>
-                        <td>{queryRow.flight_no}</td>
-                        <td>{queryRow.seats_booked}</td>
-                        <td>{queryRow.price}</td>
-                        <td>{queryRow.airline_id}</td>
-                        <td>{queryRow.departure}</td>
-                        <td>{queryRow.arrival}</td>
-                        <td>{queryRow.dept_time}</td>
-                        <td>{queryRow.arriv_time}</td>
-                        <td>{queryRow.trip_type}</td>
+                        <td style={{textAlign:"center"}}>{queryRow.flight_no}</td>
+                        <td style={{textAlign:"center"}}>{queryRow.seats_booked}</td>
+                        <td style={{textAlign:"center"}}>{queryRow.price}</td>
+                        <td style={{textAlign:"center"}}>{queryRow.airline_id}</td>
+                        <td style={{textAlign:"center"}}>{queryRow.departure}</td>
+                        <td style={{textAlign:"center"}}>{queryRow.arrival}</td>
+                        <td style={{textAlign:"center"}}>{queryRow.dept_time}</td>
+                        <td style={{textAlign:"center"}}>{queryRow.arriv_time}</td>
+                        <td style={{textAlign:"center"}}>{queryRow.trip_type}</td>
                     </tr>
                 );
             })
@@ -54,15 +54,15 @@ export default function FlightsList(props) {
                     <table class="flight-table">
                         <div></div>
                         <tr>
-                            <th> Flight Number </th>
-                            <th> Seats Booked </th>
-                            <th> Price </th>
-                            <th> Airline ID </th>
-                            <th> Departure </th>
-                            <th> Arrival </th>
-                            <th> Departure Time </th>
-                            <th> Arrival Time </th>
-                            <th> Trip Type </th>
+                            <th style={{textAlign:"center"}}> Flight Number </th>
+                            <th style={{textAlign:"center"}}> Seats Booked </th>
+                            <th style={{textAlign:"center"}}> Price </th>
+                            <th style={{textAlign:"center"}}> Airline ID </th>
+                            <th style={{textAlign:"center"}}> Departure </th>
+                            <th style={{textAlign:"center"}}> Arrival </th>
+                            <th style={{textAlign:"center"}}> Departure Time </th>
+                            <th style={{textAlign:"center"}}> Arrival Time </th>
+                            <th style={{textAlign:"center"}}> Trip Type </th>
                         </tr>
                         {flightsList}
                     </table>

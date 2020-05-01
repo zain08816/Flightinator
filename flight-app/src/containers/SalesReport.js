@@ -51,14 +51,14 @@ export default function SalesReport(props) {
         response.forEach(queryRow => {
             rows.push(
                 <tr>
-                    <td>{queryRow.reservation_no}</td>
-                    <td>{queryRow.fare}</td>
-                    <td>{queryRow.date}</td>
-                    <td>{queryRow.booking_fee}</td>
-                    <td>{queryRow.user}</td>
-                    <td>{queryRow.flight_num}</td>
-                    <td>{queryRow.seats}</td>
-                    <td>{queryRow.group}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.reservation_no}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.fare}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.date}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.booking_fee}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.user}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.flight_num}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.seats}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.group}</td>
                 </tr>
             );
         })
@@ -68,22 +68,22 @@ export default function SalesReport(props) {
         joinedResponse.forEach(queryRow => {
             joinedRows.push (
                 <tr>
-                    <td>{queryRow.flight_no}</td>
-                    <td>{queryRow.seats_booked}</td>
-                    <td>{queryRow.price}</td>
-                    <td>{queryRow.airline_id}</td>
-                    <td>{queryRow.departure}</td>
-                    <td>{queryRow.arrival}</td>
-                    <td>{queryRow.dept_time}</td>
-                    <td>{queryRow.arriv_time}</td>
-                    <td>{queryRow.trip_type}</td>
-                    <td>{queryRow.reservation_no}</td>
-                    <td>{queryRow.fare}</td>
-                    <td>{queryRow.date}</td>
-                    <td>{queryRow.booking_fee}</td>
-                    <td>{queryRow.user}</td>
-                    <td>{queryRow.seats}</td>
-                    <td>{queryRow.group}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.flight_no}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.seats_booked}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.price}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.airline_id}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.departure}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.arrival}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.dept_time}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.arriv_time}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.trip_type}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.reservation_no}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.fare}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.date}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.booking_fee}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.user}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.seats}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.group}</td>
                 </tr>
             );
         })
@@ -97,14 +97,14 @@ export default function SalesReport(props) {
                     <table class="flight-table">
                         <div></div>
                         <tr>
-                            <th> Reservation Number </th>
-                            <th> Fare </th>
-                            <th> Date </th>
-                            <th> Booking Fee </th>
-                            <th> User </th>
-                            <th> Flight Number </th>
-                            <th> Seats </th>
-                            <th> Group </th>
+                            <th style={{textAlign:"center"}}> Reservation Number </th>
+                            <th style={{textAlign:"center"}}> Fare </th>
+                            <th style={{textAlign:"center"}}> Date </th>
+                            <th style={{textAlign:"center"}}> Booking Fee </th>
+                            <th style={{textAlign:"center"}}> User </th>
+                            <th style={{textAlign:"center"}}> Flight Number </th>
+                            <th style={{textAlign:"center"}}> Seats </th>
+                            <th style={{textAlign:"center"}}> Group </th>
                         </tr>
                         {rows}
                     </table>
@@ -116,22 +116,22 @@ export default function SalesReport(props) {
                     <table class="flight-table">
                         <div></div>
                         <tr>
-                            <th> Flight Number </th>
-                            <th> Seats Booked </th>
-                            <th> Price </th>
-                            <th> Airline ID </th>
-                            <th> Departure </th>
-                            <th> Arrival </th>
-                            <th> Departure Time </th>
-                            <th> Arrival Time </th>
-                            <th> Trip Type </th>
-                            <th> Reservation Number </th>
-                            <th> Fare </th>
-                            <th> Date </th>
-                            <th> Booking Fee </th>
-                            <th> User </th>
-                            <th> Seats </th>
-                            <th> Group </th>
+                            <th style={{textAlign:"center"}}> Flight Number </th>
+                            <th style={{textAlign:"center"}}> Seats Booked </th>
+                            <th style={{textAlign:"center"}}> Price </th>
+                            <th style={{textAlign:"center"}}> Airline ID </th>
+                            <th style={{textAlign:"center"}}> Departure </th>
+                            <th style={{textAlign:"center"}}> Arrival </th>
+                            <th style={{textAlign:"center"}}> Departure Time </th>
+                            <th style={{textAlign:"center"}}> Arrival Time </th>
+                            <th style={{textAlign:"center"}}> Trip Type </th>
+                            <th style={{textAlign:"center"}}> Reservation Number </th>
+                            <th style={{textAlign:"center"}}> Fare </th>
+                            <th style={{textAlign:"center"}}> Date </th>
+                            <th style={{textAlign:"center"}}> Booking Fee </th>
+                            <th style={{textAlign:"center"}}> User </th>
+                            <th style={{textAlign:"center"}}> Seats </th>
+                            <th style={{textAlign:"center"}}> Group </th>
                         </tr>
                         {joinedRows}
                     </table>

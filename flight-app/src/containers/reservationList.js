@@ -41,14 +41,14 @@ export default function ReservationList(props) {
         reservations.forEach( reservation => {
             rows.push( 
                 <tr>
-                    <td>{reservation.reservation_no}</td>
-                    <td>{reservation.fare}</td>
-                    <td>{reservation.date}</td>
-                    <td>{reservation.booking_fee}</td>
-                    <td>{reservation.user}</td>
-                    <td>{reservation.flight_num}</td>
-                    <td>{reservation.seats}</td>
-                    <td>{reservation.group}</td>
+                    <td style={{textAlign:"center"}}>{reservation.reservation_no}</td>
+                    <td style={{textAlign:"center"}}>{reservation.fare}</td>
+                    <td style={{textAlign:"center"}}>{reservation.date}</td>
+                    <td style={{textAlign:"center"}}>{reservation.booking_fee}</td>
+                    <td style={{textAlign:"center"}}>{reservation.user}</td>
+                    <td style={{textAlign:"center"}}>{reservation.flight_num}</td>
+                    <td style={{textAlign:"center"}}>{reservation.seats}</td>
+                    <td style={{textAlign:"center"}}>{reservation.group}</td>
                 </tr>
             )
         })
@@ -61,14 +61,14 @@ export default function ReservationList(props) {
                     <table class="flight-table">
                         <div></div>
                         <tr>
-                            <th> Reservation Number </th>
-                            <th> Fare </th>
-                            <th> Date </th>
-                            <th> Booking Fee </th>
-                            <th> User </th>
-                            <th> Flight Number </th>
-                            <th> Seats </th>
-                            <th> Group </th>
+                            <th style={{textAlign:"center"}}> Reservation Number </th>
+                            <th style={{textAlign:"center"}}> Fare </th>
+                            <th style={{textAlign:"center"}}> Date </th>
+                            <th style={{textAlign:"center"}}> Booking Fee </th>
+                            <th style={{textAlign:"center"}}> User </th>
+                            <th style={{textAlign:"center"}}> Flight Number </th>
+                            <th style={{textAlign:"center"}}> Seats </th>
+                            <th style={{textAlign:"center"}}> Group </th>
                         </tr>
                         {rows}
                     </table>

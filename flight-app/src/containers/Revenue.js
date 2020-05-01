@@ -44,10 +44,10 @@ export default function Revenue(props) {
         revenues.forEach(queryRow => {
             rows.push(
                 <tr>
-                    <td>${queryRow.revenue}</td>
-                    <td>{queryRow.user}</td>
-                    <td>{queryRow.arrival}</td>
-                    <td>{queryRow.flight_no}</td>
+                    <td style={{textAlign:"center"}}>${queryRow.revenue}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.user}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.arrival}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.flight_no}</td>
                 </tr>
             )
         })
@@ -61,10 +61,10 @@ export default function Revenue(props) {
                     <table class="flight-table">
                         <div></div>
                         <tr>
-                            <th> Revenue </th>
-                            <th> Username </th>
-                            <th> Destination </th>
-                            <th> Flight Number </th>
+                            <th style={{textAlign:"center"}}> Revenue </th>
+                            <th style={{textAlign:"center"}}> Username </th>
+                            <th style={{textAlign:"center"}}> Destination </th>
+                            <th style={{textAlign:"center"}}> Flight Number </th>
                         </tr>
                         {rows}
                     </table>

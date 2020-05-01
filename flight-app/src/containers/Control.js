@@ -86,16 +86,16 @@ export default function Search(props) {
                 if (today.getDate() == deptarture){
                     rows.push(
                         <tr>
-                            <td> {response[i]['flight_no']} </td>
-                            <td> {response[i]['departure']} </td>
-                            <td> {response[i]['dept_time']} </td>
-                            <td> {response[i]['arrival']} </td>
-                            <td> {response[i]['arriv_time']} </td>
-                            <td> {response[i]['trip_type']} </td>
-                            <td> {response[i]['airline_id']} </td>
-                            <td> {response[i]['price']} </td>
-                            <td> {20 -response[i]['seats_booked']} </td>
-                            <td>
+                            <td style={{textAlign:"center"}}> {response[i]['flight_no']} </td>
+                            <td style={{textAlign:"center"}}> {response[i]['departure']} </td>
+                            <td style={{textAlign:"center"}}> {response[i]['dept_time']} </td>
+                            <td style={{textAlign:"center"}}> {response[i]['arrival']} </td>
+                            <td style={{textAlign:"center"}}> {response[i]['arriv_time']} </td>
+                            <td style={{textAlign:"center"}}> {response[i]['trip_type']} </td>
+                            <td style={{textAlign:"center"}}> {response[i]['airline_id']} </td>
+                            <td style={{textAlign:"center"}}> {response[i]['price']} </td>
+                            <td style={{textAlign:"center"}}> {20 -response[i]['seats_booked']} </td>
+                            <td style={{textAlign:"center"}}>
                                 <LinkContainer to="/reserve">
                                     <LoaderButton
                                         block
@@ -110,16 +110,16 @@ export default function Search(props) {
             else    {
             rows.push(
             <tr>
-                <td> {response[i]['flight_no']} </td>
-                <td> {response[i]['departure']} </td>
-                <td> {response[i]['dept_time']} </td>
-                <td> {response[i]['arrival']} </td>
-                <td> {response[i]['arriv_time']} </td>
-                <td> {response[i]['trip_type']} </td>
-                <td> {response[i]['airline_id']} </td>
-                <td> {response[i]['price']} </td>
-                <td> {20 -response[i]['seats_booked']} </td>
-                <td>
+                <td style={{textAlign:"center"}}> {response[i]['flight_no']} </td>
+                <td style={{textAlign:"center"}}> {response[i]['departure']} </td>
+                <td style={{textAlign:"center"}}> {response[i]['dept_time']} </td>
+                <td style={{textAlign:"center"}}> {response[i]['arrival']} </td>
+                <td style={{textAlign:"center"}}> {response[i]['arriv_time']} </td>
+                <td style={{textAlign:"center"}}> {response[i]['trip_type']} </td>
+                <td style={{textAlign:"center"}}> {response[i]['airline_id']} </td>
+                <td style={{textAlign:"center"}}> {response[i]['price']} </td>
+                <td style={{textAlign:"center"}}> {20 -response[i]['seats_booked']} </td>
+                <td style={{textAlign:"center"}}>
                     <LinkContainer to="/reserve">
                         <LoaderButton
                             block
@@ -147,16 +147,16 @@ export default function Search(props) {
                     <table class="flight-table">
                         <div></div>
                         <tr>
-                            <th> Flight Number </th>
-                            <th> Origin Airport </th>
-                            <th> Departure Time </th>
-                            <th> Arrival Airport </th>
-                            <th> Arrival Time </th>
-                            <th> Trip Type </th>
-                            <th> Airline </th>
-                            <th> Price </th>
-                            <th> Seats Available </th>
-                            <th> Book Flight </th>
+                            <th style={{textAlign:"center"}}> Flight Number </th>
+                            <th style={{textAlign:"center"}}> Origin Airport </th>
+                            <th style={{textAlign:"center"}}> Departure Time </th>
+                            <th style={{textAlign:"center"}}> Arrival Airport </th>
+                            <th style={{textAlign:"center"}}> Arrival Time </th>
+                            <th style={{textAlign:"center"}}> Trip Type </th>
+                            <th style={{textAlign:"center"}}> Airline </th>
+                            <th style={{textAlign:"center"}}> Price </th>
+                            <th style={{textAlign:"center"}}> Seats Available </th>
+                            <th style={{textAlign:"center"}}> Book Flight </th>
                         </tr>
                         {rows}
 
