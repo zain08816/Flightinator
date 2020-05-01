@@ -22,10 +22,11 @@ export default function Reserve(props) {
 
     function handleSubmit() {
 
-        var results = "";
-        var date = "";
+        const seats = fields.group ? fields.group.split(",").length+1 : 1;
+
         axios.post('api/posts/get_flight', {
-            flight_num: fields.flight_num
+            flight_num: fields.flight_num,
+            seats: seats
         }).then(res => {
             if (res.data.error) {
                 setError(res.data.error.sqlMessage);
@@ -34,14 +35,14 @@ export default function Reserve(props) {
                 return;
             } else {
                 console.log(res.data.result[0].price);
-                const seats = fields.group ? fields.group.split(",").length+1 : 1;
+                
 
                 axios.post('api/posts/reserve_flight', {
                     fare : res.data.result[0].price*seats,
-                    user: fields.user,
+                    booker: fields.user,
                     flight_num: fields.flight_num,
                     seats: seats,
-                    group: fields.group
+                    group: fields.group+`,${fields.user}`
                 }).then( res => {
                     const error_rep = res.data.error;
                     if (error_rep) {
