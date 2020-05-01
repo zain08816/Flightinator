@@ -22,24 +22,70 @@ export default function Reserve(props) {
 
     function handleSubmit() {
 
-        axios.post('api/posts/reserve_flight', {
-            user: fields.user,
-            flight_num: fields.flight_num,
-            seats: fields.group.split(",").length+1,
-            group: fields.group
-        }).then( res => {
-            const error_rep = res.data.error;
-            if (error_rep) {
-                setError(error_rep.sqlMessage);
+        var results = "";
+        var date = "";
+        axios.post('api/posts/get_flight', {
+            flight_num: fields.flight_num
+        }).then(res => {
+            if (res.data.error) {
+                setError(res.data.error.sqlMessage);
+                console.log(error_response);
                 setConfirm(true);
+                return;
             } else {
-                setConfirm(true);
+                console.log(res.data.result[0].price);
+                const seats = fields.group ? fields.group.split(",").length+1 : 1;
+
+                axios.post('api/posts/reserve_flight', {
+                    fare : res.data.result[0].price*seats,
+                    user: fields.user,
+                    flight_num: fields.flight_num,
+                    seats: seats,
+                    group: fields.group
+                }).then( res => {
+                    const error_rep = res.data.error;
+                    if (error_rep) {
+                        setError(error_rep.sqlMessage);
+                        setConfirm(true);
+                    } else {
+                        setConfirm(true);
+                    }
+                }).catch( err => {
+                    if(err) console.log(`API Error: ${err}`);
+                    return;
+                });
+
+
             }
-        }).catch( err => {
-            if(err) console.log(`API Error: ${err}`);
-        });
+        }).catch (err => {
+            if (err) console.log(`API ERROR: ${err}`);
+            return;
+        })
+
+    
+        
+
+        // axios.post('api/posts/reserve_flight', {
+        //     fare : fare*seats,
+        //     user: fields.user,
+        //     flight_num: fields.flight_num,
+        //     seats: seats,
+        //     group: fields.group
+        // }).then( res => {
+        //     const error_rep = res.data.error;
+        //     if (error_rep) {
+        //         setError(error_rep.sqlMessage);
+        //         setConfirm(true);
+        //     } else {
+        //         setConfirm(true);
+        //     }
+        // }).catch( err => {
+        //     if(err) console.log(`API Error: ${err}`);
+        // });
 
         setConfirm(true);
+
+        return;
         
     }
 

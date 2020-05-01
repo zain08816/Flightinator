@@ -175,44 +175,64 @@ router.post('/api/posts/search_flight', (req, res, next) => {
 })
 
 router.post('/api/posts/reserve_flight', (req, res, next) => {
+    console.log(req.body.fare);
     console.log(req.body.user);
     console.log(req.body.flight_num);
     console.log(req.body.seats);
     console.log(req.body.group);
 
     const people = req.body.group.split(',');
+    var error_rep = "";
 
-    for (var i = 0; i < people.length; i += 1) {
-        const person = people[i];
-        continue;
-    }
+    const today = new Date();
+    const date = today.toISOString().split('T')[0];
+    console.log(date);
 
-
-    
-    connection.query(`INSERT INTO reservations VALUES('${req.body.user}', ${req.body.flight_num}, ${req.body.seats});`,
+    connection.query(`INSERT INTO reservations VALUES(NULL, ${req.body.fare}, DATE '${date}', 0, '${req.body.user}', ${req.body.flight_num}, ${req.body.seats}, '${req.body.group}');`,
         (error, result) => {
             if (error) {
                 console.log(error);
+                error_rep = error;
             }
+    })
+
+    for (var i = 0; i < req.body.seats-1; i += 1) {
+
+        const person = people[i];
+        
+        console.log(`INSERT INTO reservations VALUES(NULL, ${req.body.fare}, DATE '${date}', 0, '${person}', ${req.body.flight_num}, ${req.body.seats}, '${req.body.group}');`);
+        connection.query(`INSERT INTO reservations VALUES(NULL, ${req.body.fare}, DATE '${date}', 0, '${person}', ${req.body.flight_num}, ${req.body.seats}, '${req.body.group}');`,
+        (error, result) => {
+            if (error) {
+                console.log(error);
+                error_rep = error;
+            }
+            
+        })
+    }
+
+    res.send(error_rep ? {error:error_rep} : {result:"Successfully Booked Flight!"});
+
+})
+
+router.post('/api/posts/get_flight', (req, res, next) => {
+    console.log(req.body.flight_num);
+
+    connection.query(`SELECT price FROM flights WHERE flight_no='${req.body.flight_num}';`,
+        (error, result) => {
+            if(error) console.log(error);
+            
+            console.log(result)
             res.send(error ? {error:error} : {result:result})
         })
 })
 
 
 
-router.post('api/posts/get_reservations', (req, res, next) => {
+router.post('/api/posts/get_reservations', (req, res, next) => {
     console.log("Getting Reservations")
 })
 
-router.get('/api/get/checkuser', (req, res, next) => {
-    const values = [req.query.username, req.query.passowrd]
-    console.log(username)
-    connection.query(`SELECT * FROM login
-                WHERE username=arjuuun`, values,
-        (q_err, q_res) => {
-            res.json(q_res.rows)
-        })
-})
 
 router.get('/api/hello', (req, res, next) => {
     const word = req.query.word
