@@ -108,13 +108,14 @@ router.post('/api/posts/reservationList', (req, res, next) => {
 })
 
 router.post('/api/posts/customerReservations', (req, res, next) => {
-
-    var query = `SELECT * FROM reservations GROUP BY flight_num=${req.body.flight_no}`
-
+    
+    var query = `SELECT * FROM reservations WHERE flight_num=${req.body.flight_no}`
+    
     console.log(query);
     
     connection.query(query, (error, result) => {
         if(error) console.log(error);
+        console.log(result);
         res.send(error ? {error:error} : {result:result})
     });
 
