@@ -231,6 +231,13 @@ router.post('/api/posts/get_flight', (req, res, next) => {
 
 router.post('/api/posts/get_reservations', (req, res, next) => {
     console.log("Getting Reservations")
+
+    connection.query(`SELECT * FROM reservations WHERE user='${req.body.username}';`,
+        (error, result) => {
+            if(error) console.log(error);
+            console.log(result)
+            res.send(error ? {error:error} : {result:result})
+        })
 })
 
 

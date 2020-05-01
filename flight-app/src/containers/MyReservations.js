@@ -15,20 +15,20 @@ export default function MyReservations(props) {
 
     const [confirm, setConfirm] = useState(false);
     const [error_response, setError] = useState("");
-    const [response, setResponse] = useState({});
+    const [reservations, setResponse] = useState([]);
     const [username, setUser] = useState(cookies.get('username'));
 
 
-    useEffect( () => {
-        getData();
-    }, []);
+    // useEffect( () => {
+    //     getData();
+    // }, []);
 
 
 
 
     async function getData(event) {
 
-        axios.post('/api/post/get_reservations', {
+        axios.post('/api/posts/get_reservations', {
             username: username
         })
         .then( res => {
@@ -37,14 +37,17 @@ export default function MyReservations(props) {
                 setError(error.sqlMessage);
                 
             } else {
-                setResponse(res.data)
+                setResponse(res.data.result)
             } 
         }).catch( err => {
             if(err) console.log(`API Error: ${err}`);
         });
 
+        setConfirm(true);
 
     }
+
+
 
 
 
@@ -53,69 +56,59 @@ export default function MyReservations(props) {
 
     function renderReservations(){
 
-        getData();
+        const rows = [];
 
-        var rows = [];
-
-        for (var i = 0; i < 5; i += 1) {
-            rows.push(
-            <tr>
-                <td>flight_number {i}</td>
-                <td>type {i}</td><td>price {i}</td>
-                <td>Departure {i}</td>
-                <td>Depart Time {i}</td>
-                <td>Arrival {i}</td>
-                <td>Arival Time {i}</td>
-                <td>Airline {i}</td>
-                <td>Seats Availible {20-i}</td>
-                <td>
-                    Reservation {i}
-                </td>
-            </tr>
-            );
-        }
-
-
-
-
-        return(
+        reservations.forEach( reservation => {
+            rows.push( 
+                <tr>
+                    <td style={{textAlign:"center"}} >{reservation.reservation_no}</td>
+                    <td style={{textAlign:"center"}}>{reservation.fare}</td>
+                    <td style={{textAlign:"center"}}>{reservation.date}</td>
+                    <td style={{textAlign:"center"}}>{reservation.booking_fee}</td>
+                    <td style={{textAlign:"center"}}>{reservation.user}</td>
+                    <td style={{textAlign:"center"}}>{reservation.flight_num}</td>
+                    <td style={{textAlign:"center"}}>{reservation.seats}</td>
+                    <td style={{textAlign:"center"}}>{reservation.group}</td>
+                </tr>
+            )
+        })
+        return (
             <div>
                 <br />
-                <br />
-                <br />
-                My Reservations
-                <br />
-                <br />
+                <h2>Reservation List</h2>
                 <br />
                 <div>
-                    <table class="flight-table">
+                    <table>
                         <div></div>
                         <tr>
-                            <th> Flight Number </th>
-                            <th> Type </th>
-                            <th> Price </th>
-                            <th> Departure </th>
-                            <th> Depart Time </th>
-                            <th> Arrival </th>
-                            <th> Arrival Time </th>
-                            <th> Airline </th>
-                            <th> Seats Availible </th>
-                            <th> Reservation Number </th>
+                            <th style={{textAlign:"center"}}> Reservation Number </th>
+                            <th style={{textAlign:"center"}}> Fare </th>
+                            <th style={{textAlign:"center"}}> Date </th>
+                            <th style={{textAlign:"center"}}> Booking Fee </th>
+                            <th style={{textAlign:"center"}}> User </th>
+                            <th style={{textAlign:"center"}}> Flight Number </th>
+                            <th style={{textAlign:"center"}}> Seats </th>
+                            <th style={{textAlign:"center"}}> Group </th>
                         </tr>
                         {rows}
-
                     </table>
                 </div>
             </div>
-        )
+        );
     }
 
 
-    function renderConfirmation(){
+    function renderRequest(){
 
         return(
             <div>
-                Confirmed
+                <form onSubmit={getData}>
+                    <LoaderButton
+                        block
+                        type="submit"
+                        bsSize="large"
+                        >Get My Reservations</LoaderButton>
+                </form>
             </div>
         )
     }
@@ -124,8 +117,8 @@ export default function MyReservations(props) {
     return (
         <div>
             {
-                confirm ? renderConfirmation() :
-                renderReservations()
+                confirm ? renderReservations() : renderRequest()
+                
             }
         </div>
     );
