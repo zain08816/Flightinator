@@ -7,9 +7,6 @@ import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
 
 export default function CustomerReservations(props) {
-
-
-
     const [done, setDone] = useState(false);
     const [reservations, setReservations] = useState([]);
     const [fields, handleFieldChange] = useFormFields({
@@ -64,21 +61,49 @@ export default function CustomerReservations(props) {
         ) 
     }
 
+
     function renderResult(){
+        const rows = [];
 
+//  <td>{reservation.group}</td>
+        reservations.forEach( reservation => {
+           
+             rows.push( 
+                <tr>
+                    <td>{reservation.name}</td>
+                </tr>
+            ) 
+          /*
+            var array = reservation.group.split(",");
+            
+            for (var x=0; x<array.length;x++){
+            rows.push( 
+                <tr>
+                    <td>{array[x]}</td>
+                </tr>
+            )
+            }
+        */
+        })
 
-        return(
+        return (
             <div>
-                result
+                <br />
+                <h2>Customer List</h2>
+                <br />
+                <div>
+                    <table class="flight-table">
+                        <div></div>
+                        <tr>
+                            <th> Customers </th>
+                        </tr>
+                        {rows}
+                    </table>
+                </div>
             </div>
-        )
+        );
     }
         
-
-
-
-
-
     return (
         <div>
             {
