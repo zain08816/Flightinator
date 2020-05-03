@@ -247,6 +247,14 @@ router.post('/api/posts/get_reservations', (req, res, next) => {
         })
 })
 
+router.post('/api/posts/mostbooked', (req, res, next) => {
+    connection.query(oneline`SELECT * FROM flights WHERE seats_booked = (SELECT MAX(seats_booked) FROM flights);`,
+    (error, result) => {
+        if( error ) console.log( error );
+        res.send( error ? {error:error} : {result:result} );
+    });
+})
+
 
 router.get('/api/hello', (req, res, next) => {
     const word = req.query.word
