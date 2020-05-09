@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import LoaderButton from "../components/LoaderButton";
-import "./Customer.css";
 import { useFormFields } from "../libs/hooksLib";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import axios from 'axios';
@@ -96,7 +95,7 @@ export default function Customer(props) {
                 <FormGroup controlId="username" bsSize="large">
                     <ControlLabel>Username</ControlLabel>
                     <FormControl
-                        autoFocus
+                        
                         type="username"
                         value={fields.username}
                         onChange={handleFieldChange}
@@ -105,7 +104,7 @@ export default function Customer(props) {
                 <FormGroup controlId="password" bsSize="large">
                     <ControlLabel>Password</ControlLabel>
                     <FormControl
-                        autoFocus
+                        
                         type="password"
                         value={fields.password}
                         onChange={handleFieldChange}
@@ -114,7 +113,7 @@ export default function Customer(props) {
                 <FormGroup controlId="name" bsSize="large">
                     <ControlLabel>Name</ControlLabel>
                     <FormControl
-                        autoFocus
+                        
                         type="name"
                         value={fields.name}
                         onChange={handleFieldChange}
@@ -187,7 +186,7 @@ export default function Customer(props) {
                 <FormGroup controlId="total_revenue" bsSize="large">
                     <ControlLabel>Total Revenue</ControlLabel>
                     <FormControl
-                        autoFocus
+                        
                         type="number"
                         value={fields.total_revenue}
                         onChange={handleFieldChange}
@@ -245,7 +244,7 @@ export default function Customer(props) {
                 <FormGroup controlId="password" bsSize="large">
                     <ControlLabel>Password</ControlLabel>
                     <FormControl
-                        autoFocus
+                        
                         type="password"
                         value={fields.password}
                         onChange={handleFieldChange}
@@ -254,7 +253,7 @@ export default function Customer(props) {
                 <FormGroup controlId="name" bsSize="large">
                     <ControlLabel>Name</ControlLabel>
                     <FormControl
-                        autoFocus
+                        
                         type="name"
                         value={fields.name}
                         onChange={handleFieldChange}
@@ -327,7 +326,7 @@ export default function Customer(props) {
                 <FormGroup controlId="total_revenue" bsSize="large">
                     <ControlLabel>Total Revenue</ControlLabel>
                     <FormControl
-                        autoFocus
+                        
                         type="number"
                         value={fields.total_revenue}
                         onChange={handleFieldChange}

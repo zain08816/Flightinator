@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import LoaderButton from "../components/LoaderButton";
-import "./MyReservations.css";
 import { useFormFields } from "../libs/hooksLib";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import axios from 'axios';

@@ -75,14 +75,21 @@ export default function Search(props) {
 
         if (response.length < 1) {rows.push( "Sorry, there are no flights given your search criteria");}
 
+        var today = new Date();
+
         for ( var i = 0;  i < response.length; i += 1) {
 
+            if ((parseInt(today.getDate()) > parseInt(response[i].dept_time.split('T')[0].split('-')[2]) 
+            && parseInt(today.getMonth()) > parseInt(response[i].dept_time.split('T')[0].split('-')[1]) ) || (20-response[i]['seats_booked']) < 1) {
+                continue;
+            }
+
             if (fields.all == "active"){
-                var today = new Date();
+                
                 var deptarture = response[i].dept_time.split('T')[0].split('-')[2];
 
-                console.log(deptarture);
-                console.log(today.getDate());
+                // console.log(deptarture);
+                // console.log(today.getDate());
                 if (today.getDate() == deptarture){
                     rows.push(
                         <tr>
@@ -231,9 +238,10 @@ export default function Search(props) {
                             
 
                             <option value="no" >Search for a Flight</option>
+                            <option value="yes" >Show me all Flights</option>
                             <option value="start" >Search by Origin</option>
                             <option value="end" >Search by Destination</option>
-                            <option value="yes" >Show me all Flights</option>
+                            <option value="pop">Show most popular flights</option>
                             <option value="active" >Show me all Active Flights</option>
                         </FormControl>
                     </FormGroup>

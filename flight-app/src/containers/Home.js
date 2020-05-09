@@ -17,9 +17,10 @@ export default function Home() {
 
     return (
         <div className="Home">
+            <marquee>NOTICE: Due COVID-19 airlines are opererating in a limited capacity. SEE COVID-19 Info for more information</marquee>
             <div className="lander">
                 <h1>Flightinator 9000</h1>
-                <p>Book a flight here</p>
+                <p>Welcome! Book a flight here</p>
                 <p>Click this button see if the frontend can talk to the backend.</p>
                 <Button 
                 bsStyle="primary"
