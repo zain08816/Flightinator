@@ -17,7 +17,7 @@ export default function Home() {
 
     return (
         <div className="Home">
-            <marquee>NOTICE: Due COVID-19 airlines are opererating in a limited capacity. SEE COVID-19 Info for more information</marquee>
+            <marquee>NOTICE: Due to COVID-19 airlines are opererating in a limited capacity. SEE COVID-19 Info for more information and restrictions</marquee>
             <div className="lander">
                 <h1>Flightinator 9000</h1>
                 <p>Welcome! Book a flight here</p>

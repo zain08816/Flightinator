@@ -69,6 +69,9 @@ function App(props) {
             <LinkContainer to ="/myitinerary">
               <NavItem> My Itinerary </NavItem>
             </LinkContainer>
+            <LinkContainer to="/covid">
+              <NavItem>COVID-19 Info</NavItem>
+            </LinkContainer>
           </>
 
     );
