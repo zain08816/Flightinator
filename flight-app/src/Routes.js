@@ -18,6 +18,9 @@ import Profile from "./containers/Profile";
 import Activeflights from "./containers/activeFlights";
 import CustomerReservation from "./containers/CustomerReservation";
 import MostBooked from "./containers/mostBooked";
+import MyItinerary from "./containers/MyItinerary";
+import TopCustomer from "./containers/topCustomer";
+import Covid from "./containers/covid";
 
 export default function Routes({ appProps }) {
     return (
@@ -38,6 +41,9 @@ export default function Routes({ appProps }) {
             <AppliedRoute path="/activeFlights" exact component={Activeflights} appProps={appProps} />
             <AppliedRoute path="/customerreservation" exact component={CustomerReservation} appProps={appProps} />
             <AppliedRoute path="/mostbooked" exact component={MostBooked} appProps={appProps} />
+            <AppliedRoute path="/myitinerary" exact component={MyItinerary} appProps={appProps} />
+            <AppliedRoute path="/topcustomer" exact component={TopCustomer} appProps={appProps} />
+            <AppliedRoute path="/covid" exact component={Covid} appProps={appProps} />
             <Route component={NotFound} />
         </Switch>
     );

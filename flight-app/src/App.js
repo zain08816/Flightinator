@@ -66,6 +66,9 @@ function App(props) {
             <LinkContainer to ="/myreservations">
               <NavItem> My Reservations </NavItem>
             </LinkContainer>
+            <LinkContainer to ="/myitinerary">
+              <NavItem> My Itinerary </NavItem>
+            </LinkContainer>
           </>
 
     );
@@ -79,6 +82,9 @@ function App(props) {
             </LinkContainer>
             <LinkContainer to="/login">
               <NavItem>Login</NavItem>
+            </LinkContainer>
+            <LinkContainer to="/covid">
+              <NavItem>COVID-19 Info</NavItem>
             </LinkContainer>
           </>
     );
@@ -116,6 +122,9 @@ function App(props) {
             </LinkContainer>
             <LinkContainer to ="/mostBooked">
               <NavItem> Find the Most Active Flight </NavItem>
+            </LinkContainer>
+            <LinkContainer to ="/topcustomer">
+              <NavItem> Find Top Customer </NavItem>
             </LinkContainer>
           </>
     );
