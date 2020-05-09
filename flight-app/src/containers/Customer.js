@@ -12,6 +12,7 @@ export default function Customer(props) {
     const [fields, handleFieldChange] = useFormFields({
         account_no: 1,
         username: "",
+        password: "",
         name: "",
         email: "",
         phone_no: "",
@@ -20,7 +21,8 @@ export default function Customer(props) {
         state: "",
         zip_code: "",
         seat_preference: 0,
-        meal_preference: ""
+        meal_preference: "",
+        total_revenue: 0
     })
     const [done, setDone] = useState("");
 
@@ -62,7 +64,10 @@ export default function Customer(props) {
             state: fields.state,
             zip_code: fields.zip_code,
             seat_preference: fields.seat_preference,
-            meal_preference: fields.meal_preference
+            meal_preference: fields.meal_preference,
+            total_revenue: fields.total_revenue,
+            username: fields.username,
+            password: fields.password
         })
         .then( res => {
             const error = res.data.error;
@@ -79,6 +84,33 @@ export default function Customer(props) {
     function renderAdd() {
         return (
             <form onSubmit={handleSubmit}>
+                <FormGroup controlId="account_no" bsSize="large">
+                    <ControlLabel>Account Number</ControlLabel>
+                    <FormControl
+                        autoFocus
+                        type="number"
+                        value={fields.account_no}
+                        onChange={handleFieldChange}
+                    />
+                </FormGroup>
+                <FormGroup controlId="username" bsSize="large">
+                    <ControlLabel>Username</ControlLabel>
+                    <FormControl
+                        autoFocus
+                        type="username"
+                        value={fields.username}
+                        onChange={handleFieldChange}
+                    />
+                </FormGroup>
+                <FormGroup controlId="password" bsSize="large">
+                    <ControlLabel>Password</ControlLabel>
+                    <FormControl
+                        autoFocus
+                        type="password"
+                        value={fields.password}
+                        onChange={handleFieldChange}
+                    />
+                </FormGroup>
                 <FormGroup controlId="name" bsSize="large">
                     <ControlLabel>Name</ControlLabel>
                     <FormControl
@@ -149,6 +181,15 @@ export default function Customer(props) {
                     <FormControl
                         type="meal_preference"
                         value={fields.meal_preference}
+                        onChange={handleFieldChange}
+                    />
+                </FormGroup>
+                <FormGroup controlId="total_revenue" bsSize="large">
+                    <ControlLabel>Total Revenue</ControlLabel>
+                    <FormControl
+                        autoFocus
+                        type="number"
+                        value={fields.total_revenue}
                         onChange={handleFieldChange}
                     />
                 </FormGroup>
@@ -201,6 +242,15 @@ export default function Customer(props) {
                         onChange={usernameFieldChange}
                     />
                 </FormGroup>
+                <FormGroup controlId="password" bsSize="large">
+                    <ControlLabel>Password</ControlLabel>
+                    <FormControl
+                        autoFocus
+                        type="password"
+                        value={fields.password}
+                        onChange={handleFieldChange}
+                    />
+                </FormGroup>
                 <FormGroup controlId="name" bsSize="large">
                     <ControlLabel>Name</ControlLabel>
                     <FormControl
@@ -271,6 +321,15 @@ export default function Customer(props) {
                     <FormControl
                         type="meal_preference"
                         value={fields.meal_preference}
+                        onChange={handleFieldChange}
+                    />
+                </FormGroup>
+                <FormGroup controlId="total_revenue" bsSize="large">
+                    <ControlLabel>Total Revenue</ControlLabel>
+                    <FormControl
+                        autoFocus
+                        type="number"
+                        value={fields.total_revenue}
                         onChange={handleFieldChange}
                     />
                 </FormGroup>

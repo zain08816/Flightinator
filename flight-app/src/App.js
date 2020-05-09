@@ -112,7 +112,7 @@ function App(props) {
               <NavItem> Lookup Revenue Generated </NavItem>
             </LinkContainer>
             <LinkContainer to ="/customerreservation">
-              <NavItem> Customer reservation List </NavItem>
+              <NavItem> Customer Reservation List </NavItem>
             </LinkContainer>
             <LinkContainer to ="/mostBooked">
               <NavItem> Find the Most Active Flight </NavItem>

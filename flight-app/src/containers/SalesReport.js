@@ -59,6 +59,7 @@ export default function SalesReport(props) {
                     <td style={{textAlign:"center"}}>{queryRow.flight_num}</td>
                     <td style={{textAlign:"center"}}>{queryRow.seats}</td>
                     <td style={{textAlign:"center"}}>{queryRow.group}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.name}</td>
                 </tr>
             );
         })
@@ -84,6 +85,7 @@ export default function SalesReport(props) {
                     <td style={{textAlign:"center"}}>{queryRow.user}</td>
                     <td style={{textAlign:"center"}}>{queryRow.seats}</td>
                     <td style={{textAlign:"center"}}>{queryRow.group}</td>
+                    <td style={{textAlign:"center"}}>{queryRow.name}</td>
                 </tr>
             );
         })
@@ -91,7 +93,7 @@ export default function SalesReport(props) {
         return (
             <div>
                 <br />
-                <h2>Sales Report for {intToMonth(month)}</h2>
+                <h2>Sales Report</h2>
                 <br />
                 <div>
                     <table class="flight-table">
@@ -105,6 +107,7 @@ export default function SalesReport(props) {
                             <th style={{textAlign:"center"}}> Flight Number </th>
                             <th style={{textAlign:"center"}}> Seats </th>
                             <th style={{textAlign:"center"}}> Group </th>
+                            <th style={{textAlign:"center"}}> Name </th>
                         </tr>
                         {rows}
                     </table>
@@ -132,6 +135,7 @@ export default function SalesReport(props) {
                             <th style={{textAlign:"center"}}> User </th>
                             <th style={{textAlign:"center"}}> Seats </th>
                             <th style={{textAlign:"center"}}> Group </th>
+                            <th style={{textAlign:"center"}}> Name </th>
                         </tr>
                         {joinedRows}
                     </table>
@@ -141,6 +145,7 @@ export default function SalesReport(props) {
     }
 
     function intToMonth(monthCode) {
+        console.log(monthCode);
         if( monthCode === 1 ) return 'January';
         else if( monthCode === 2 ) return 'February';
         else if( monthCode === 3 ) return 'March';
@@ -173,7 +178,7 @@ export default function SalesReport(props) {
                         bsSize="large"
                         isLoading={isLoading}
                         disabled={!validateForm()}
-                    >Get Sales Report for {intToMonth(fields.month)}</LoaderButton>
+                    >Get Sales Report</LoaderButton>{/*} for {intToMonth(fields.month)}</LoaderButton>*/}
                 </FormGroup>
             </form>
         );

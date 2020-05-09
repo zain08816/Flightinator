@@ -27,9 +27,9 @@ router.post('/api/posts/login', (req, res, next) => {
 
 router.post('/api/posts/customer_info', (req, res, next) => {
     if( req.body.action == 'add' ) {
-        connection.query(oneline`INSERT INTO customer (name, email, phone_no, address, city, state, zip_code, seat_preference, meal_preference)
-VALUES ('${req.body.name}', '${req.body.email}', '${req.body.phone_no}', '${req.body.address}', '${req.body.city}',
-'${req.body.state}', '${req.body.zip_code}', ${req.body.seat_preference}, '${req.body.meal_preference}');`,
+        connection.query(oneline`INSERT INTO customer (name, email, phone_no, address, city, state, zip_code, seat_preference, meal_preference, account_no, total_revenue, username, password)
+VALUES ('${req.body.name}', '${req.body.email}', '${req.body.phone_no}', '${req.body.address}', '${req.body.city}', 
+'${req.body.state}', '${req.body.zip_code}', ${req.body.seat_preference}, '${req.body.meal_preference}', ${req.body.account_no}, ${req.body.total_revenue}, '${req.body.username}', '${req.body.password}');`,
         (error, result) => {
             if( error ) console.log( `SQL Error! Query: ${error.sql}` );
             res.send( error ? {error:error} : {result:result} )
@@ -56,7 +56,7 @@ WHERE username = '${req.body.username}';`,
             res.send( error ? {error:error} : {result:result} )
         });
     } else if( req.body.action == 'get' ) {
-        connection.query(oneline`SELECT name,email,phone_no,address,city,state,zip_code,seat_preference,meal_preference
+        connection.query(oneline`SELECT name,email,phone_no,address,city,state,zip_code,seat_preference,meal_preference,total_revenue,username,password
 FROM customer
 WHERE username='${req.body.username}';`,
         (error,result) => {

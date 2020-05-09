@@ -49,6 +49,7 @@ export default function ReservationList(props) {
                     <td style={{textAlign:"center"}}>{reservation.flight_num}</td>
                     <td style={{textAlign:"center"}}>{reservation.seats}</td>
                     <td style={{textAlign:"center"}}>{reservation.group}</td>
+                    <td style={{textAlign:"center"}}>{reservation.name}</td>
                 </tr>
             )
         })
@@ -69,6 +70,7 @@ export default function ReservationList(props) {
                             <th style={{textAlign:"center"}}> Flight Number </th>
                             <th style={{textAlign:"center"}}> Seats </th>
                             <th style={{textAlign:"center"}}> Group </th>
+                            <th style={{textAlign:"center"}}> Name </th>
                         </tr>
                         {rows}
                     </table>
