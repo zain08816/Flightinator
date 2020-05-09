@@ -7,16 +7,18 @@ const oneline = require('oneline');
 router.post('/api/posts/signup', (req, res, next) => {
     if( !req.body.username || !req.body.password )
         throw 'Improperly formatted request.';
-    connection.query(`INSERT INTO login
-VALUES('${req.body.username}', '${req.body.password}');`,
+    connection.query(`INSERT INTO customer (name, email, phone_no, address, city, state, zip_code, seat_preference, meal_preference, account_no, total_revenue, username, password) VALUES(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '${req.body.username}', '${req.body.password}');`,
         (error, result) => {
+            if (error) {
+                console.log(error);
+            }
             res.send( error ? {error:error} : {} );
         });
 })
 
 router.post('/api/posts/login', (req, res, next) => {
     console.log(`${req.body.username} has logged in.`);
-    connection.query(`SELECT username,password FROM login WHERE username='${req.body.username}' AND password='${req.body.password}';`,
+    connection.query(`SELECT username,password FROM customer WHERE username='${req.body.username}' AND password='${req.body.password}';`,
         (error, result) => {
             if (error) {
                 console.log(error);
@@ -151,7 +153,9 @@ router.post('/api/posts/search_flight', (req, res, next) => {
     var query = "";
     var place = "";
 
-    if (req.body.all == "yes" || req.body.all == "active") {
+    if (req.body.all == "pop") {
+        query = "SELECT flight_no, departure, dept_time, arrival, arriv_time, trip_type, airline_id, price, seats_booked FROM flights ORDER BY seats_booked DESC LIMIT 5"
+    } else if (req.body.all == "yes" || req.body.all == "active") {
         query = "SELECT flight_no, departure, dept_time, arrival, arriv_time, trip_type, airline_id, price, seats_booked FROM flights";
     } else if (req.body.all == "start"){
         query = `SELECT flight_no, departure, dept_time, arrival, arriv_time, trip_type, airline_id, price, seats_booked FROM flights WHERE departure='${req.body.departure}'`;
@@ -162,7 +166,6 @@ router.post('/api/posts/search_flight', (req, res, next) => {
         if (req.body.departure != "" && req.body.arrival != "") {place = `departure='${req.body.departure}' AND arrival='${req.body.arrival}'`;}
         if ((req.body.arrival != "" || req.body.departure != "") && req.body.trip_type != "all" ) { type_query = `AND trip_type='${req.body.trip_type}'`; }
         else if (req.body.trip_type != "all") {type_query = `trip_type='${req.body.trip_type}'`; }
-
     }
 
 
@@ -189,6 +192,11 @@ router.post('/api/posts/reserve_flight', (req, res, next) => {
     const date = today.toISOString().split('T')[0];
     console.log(date);
 
+    connection.query(`Update customer SET total_revenue = total_revenue + ${req.body.seats * req.body.fare} WHERE username='${req.body.booker}';`,
+            (error, result) => {
+                if(error) console.log(error);
+    })
+
     // connection.query(`INSERT INTO reservations VALUES(NULL, ${req.body.fare}, DATE '${date}', 0, '${req.body.booker}', ${req.body.flight_num}, ${req.body.seats}, '${req.body.group}');`,
     //     (error, result) => {
     //         if (error) {
@@ -200,6 +208,8 @@ router.post('/api/posts/reserve_flight', (req, res, next) => {
     for (var i = 0; i < req.body.seats; i += 1) {
 
         const person = people[i];
+
+        
         
         console.log(`INSERT INTO reservations VALUES(NULL, ${req.body.fare}, DATE '${date}', 0, '${req.body.booker}', ${req.body.flight_num}, ${req.body.seats}, '${req.body.group}', '${person}');`);
         connection.query(`INSERT INTO reservations VALUES(NULL, ${req.body.fare}, DATE '${date}', 0, '${req.body.booker}', ${req.body.flight_num}, ${req.body.seats}, '${req.body.group}', '${person}');`,
@@ -224,6 +234,8 @@ router.post('/api/posts/get_flight', (req, res, next) => {
             if(error) console.log(error);
         })
 
+    
+
     connection.query(`SELECT price FROM flights WHERE flight_no='${req.body.flight_num}';`,
         (error, result) => {
             if(error) console.log(error);
@@ -231,10 +243,19 @@ router.post('/api/posts/get_flight', (req, res, next) => {
             console.log(result)
             res.send(error ? {error:error} : {result:result})
         })
-    
 })
 
 
+
+router.post('/api/posts/get_i', (req, res, next) => {
+    console.log(req.body.flight_num)
+    connection.query(`SELECT * FROM flights WHERE flight_no='${req.body.flight_num}';`,
+        (error, result) => {
+            if(error) console.log(error);
+            console.log(result)
+            res.send(error ? {error:error} : {result:result})
+        })
+})
 
 router.post('/api/posts/get_reservations', (req, res, next) => {
     console.log("Getting Reservations")
@@ -246,6 +267,18 @@ router.post('/api/posts/get_reservations', (req, res, next) => {
             res.send(error ? {error:error} : {result:result})
         })
 })
+
+
+router.post('/api/posts/get_top_cust', (req, res, next) => {
+
+    connection.query(`SELECT name, username, total_revenue FROM customer ORDER BY total_revenue desc limit 1;`,
+        (error, result) => {
+            if(error) console.log(error);
+            console.log(result)
+            res.send(error ? {error:error} : {result:result})
+        })
+})
+
 
 router.post('/api/posts/mostbooked', (req, res, next) => {
     connection.query(oneline`SELECT * FROM flights WHERE seats_booked = (SELECT MAX(seats_booked) FROM flights);`,
